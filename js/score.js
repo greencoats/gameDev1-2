@@ -9,6 +9,6 @@ class score{
 	}
 
 	AddScore(){
-		this.correct += 1;
+		this.correct++;
 	}
 };
