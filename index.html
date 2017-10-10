@@ -1,0 +1,64 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Learning Phaser</title>
+
+	<! link all the scripts >
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+	<script type="text/javascript" src="js/intro.js"></script>
+	<script type="text/javascript" src="js/gameplay.js"></script>
+	<script type="text/javascript" src="js/preload.js"></script>
+	<script type="text/javascript" src="js/chapterOne.js"></script>
+	<script type="text/javascript" src="js/chapterTwo.js"></script>
+	<script type="text/javascript" src="js/chapterThree.js"></script>
+	<script type="text/javascript" src="js/menu.js"></script>
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+	var game = new Phaser.Game(750, 1335, Phaser.AUTO, 'Game 2', { create: create, update: update });
+
+	
+	function create() {
+		/*
+		let style = {
+			font: "64px Arial",
+	        fill: "#ffffff",
+	        align: "center"
+	    }
+	    //let text = game.add.text(game.world.centerX, game.world.centerY, "Hello, world!", style);
+
+	    //text.anchor.setTo(0.5, 0.5);
+		*/
+
+		game.state.add("Preload", preloadState);
+		game.state.add("Gameplay", gameplayState);
+		game.state.add("Menu", menuState);
+		game.state.add("Chapter 1", chapterOneState);
+		game.state.add("Chapter 2", chapterTwoState);
+		game.state.add("Chapter 3", chapterThreeState);
+		game.state.add("Intro", introState);
+
+		game.state.start("Preload");
+	}
+
+	function update() {
+
+
+	}
+
+
+	
+
+</script>
+
+</body>
+</html>
