@@ -1,4 +1,4 @@
-let timeToCopmlete = 2000; //Time in milliseconds to complete the dialogue
+let timeToCopmlete = 5000; //Time in milliseconds to complete the dialogue
 
 let gameplayState = function(){
 
@@ -37,7 +37,7 @@ gameplayState.prototype.create = function() {
 gameplayState.prototype.update = function() {
 	// Nothing yet
 
-	game.debug.text('Time to complete dialogue: ' + timer.duration.toFixed(0), 32, 32);
+	game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
 };
 
 gameplayState.prototype.moveClipboard = function() {
