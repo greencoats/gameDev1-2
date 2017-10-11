@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
-	<title>Learning Phaser</title>
+    <title>Project 2</title>
 
 	<! link all the scripts >
 	<script type="text/javascript" src="js/phaser.min.js"></script>
@@ -24,20 +24,16 @@
 
 <script type="text/javascript">
 
+<<<<<<< HEAD
 	var game = new Phaser.Game(750, 1335, Phaser.AUTO, 'Game 2', { create: create, update: update });
 
 
+=======
+	let game = new Phaser.Game(750, 1335, Phaser.AUTO, 'Game 2', { create: create, update: update });
+	
+>>>>>>> refs/remotes/origin/dev
 	function create() {
-		/*
-		let style = {
-			font: "64px Arial",
-	        fill: "#ffffff",
-	        align: "center"
-	    }
-	    //let text = game.add.text(game.world.centerX, game.world.centerY, "Hello, world!", style);
-
-	    //text.anchor.setTo(0.5, 0.5);
-		*/
+		
 
 		game.state.add("Preload", preloadState);
 		game.state.add("Gameplay", gameplayState);
@@ -55,9 +51,12 @@
 
 	}
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> refs/remotes/origin/dev
 </script>
 
 </body>
