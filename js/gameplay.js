@@ -7,6 +7,16 @@ gameplayState.prototype.preload = function() {
 };
 
 gameplayState.prototype.create = function() {
+
+	// //Create the timer
+	// timer = game.time.create(false);
+
+	// //After 2 seconds, updateCounter is called
+	// timer.loop(2000, updateCounter, this);
+	
+	// //Timer start
+	// timer.start();
+
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
 	this.clipboard.y = 400;
