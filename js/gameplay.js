@@ -56,7 +56,10 @@ gameplayState.prototype.moveClipboard = function() {
 }
 
 function updateCounter() {
+	//Stop the timer
+	timer.stop();
+
 	//Switch timer variable to the next value it needs to be
 
-	//Call timeup state here (most likely just going to force next dialogue line)
+	//Call timeup state here (most likely just going to force next dialogue line) and start the timer
 }
