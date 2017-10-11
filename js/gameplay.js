@@ -6,11 +6,13 @@ let gameplayState = function(){
 
 gameplayState.prototype.preload = function() {
 	game.load.json('character','exampleJSON.json');
+	game.load.json('clipboard','clipboardJSON.json')
 };
 
 gameplayState.prototype.create = function() {
 
 	let charData = game.cache.getJSON('character');
+	let clipboardData = game.cache.getJSON('clipboard');
 
 	//Create the timer
 	timer = game.time.create(false);
