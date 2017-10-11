@@ -3,7 +3,7 @@ Tasks DONE:
 -Setting up a general template for JSON file for each character dialogue
 -Setting up a general template for JSON file for clipboard data
 -Figure out how to load JSON files in code
-
+====================
 TODO by Saturday 10/14:
 -Load dialogue into JSONS
 -Create clipboard synopsis
