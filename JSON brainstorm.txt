@@ -12,5 +12,4 @@ Array of Dialogue objects:
     -Abbreviation of each statement block for the clipboard
     
 CONTENTS OF CLIPBOARD JSON:
-
 Array of summaries for each case
