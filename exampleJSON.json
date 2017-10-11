@@ -1,0 +1,28 @@
+{
+    "name": "John Doe",
+    "picture": "/assets/images/john_doe.png",
+
+    "dialogues": [
+        {
+            "question": "introduction",
+            "segments": ["Hi my name is Joe", "I am 25 years old", "I was here yesterday at the time of the crime"],
+            "contradiction": [false, false, true],
+            "timer": [5,5,10],
+            "abbr": "Joe is 25. Allegedly was at the scene of the crime when it happened"
+        },
+        {
+            "question": "What were you doing the night of the crime?",
+            "segments": ["I was here the night of the crime", "I was busy cleaning the bar counter"],
+            "contradiction": [false, true],
+            "timer": [10,10],
+            "abbr": "Joe claims he was cleaning the bar counter at the time"
+        },
+        {
+            "question": "How did you know the crime happened?",
+            "segments": ["I heard a loud crash, it sounded tremendously loud"],
+            "contradiction": [false],
+            "timer": [10],
+            "abbr" : "Joe claims to have heard a loud crash"
+        }
+    ]
+ }

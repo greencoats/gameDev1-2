@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let preloadState = function(){
 	// There's nothing here!
 }
