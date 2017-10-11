@@ -1,0 +1,8 @@
+TODO by Saturday 10/14:
+-Load dialogue into JSONS
+-Create clipboard synopsis
+-Display clipboard synopsis on clipboard
+-Position timer correctly
+-Configure timer to sync up with dialogue appropriately
+
+-Audio if it's ready ?
