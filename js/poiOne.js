@@ -4,7 +4,7 @@ let poiOneState = function () {
 }
 
 poiOneState.prototype.preload = function () {
-    
+
 }
 
 poiOneState.prototype.create = function () {

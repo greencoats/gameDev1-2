@@ -5,17 +5,19 @@ let gameplayState = function(){
 };
 
 gameplayState.prototype.preload = function() {
-
+	game.load.json('character','exampleJSON.json');
 };
 
 gameplayState.prototype.create = function() {
+
+	let charData = game.cache.getJSON('character');
 
 	//Create the timer
 	timer = game.time.create(false);
 
 	//After 2 seconds, updateCounter is called
 	timer.loop(timeToCopmlete, updateCounter, this);
-	
+
 	//Timer start
 	timer.start();
 
@@ -52,7 +54,7 @@ gameplayState.prototype.moveClipboard = function() {
 }
 
 function updateCounter() {
-	//Switch timer variable to the next value it needs to be 
+	//Switch timer variable to the next value it needs to be
 
 	//Call timeup state here (most likely just going to force next dialogue line)
 }

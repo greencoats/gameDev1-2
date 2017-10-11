@@ -1,6 +1,6 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
     <title>Project 2</title>
 
@@ -25,9 +25,9 @@
 <script type="text/javascript">
 
 	let game = new Phaser.Game(750, 1335, Phaser.AUTO, 'Game 2', { create: create, update: update });
-	
+
 	function create() {
-		
+
 
 		game.state.add("Preload", preloadState);
 		game.state.add("Gameplay", gameplayState);
