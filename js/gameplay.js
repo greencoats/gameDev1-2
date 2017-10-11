@@ -1,90 +1,37 @@
 let gameplayState = function(){
 
-}
+};
 
-gameplayState.prototype.preload = function(){
+gameplayState.prototype.preload = function() {
 
-}
+};
 
-gameplayState.prototype.create = function(){
-	//Create World
-	game.add.sprite(0, 0, "sky");
-	game.physics.startSystem(Phaser.physics.arcade);
-	//Add empty group to hold platforms
-	this.platforms = game.add.group();
-	this.platforms.enableBody = true;
+gameplayState.prototype.create = function() {
+	this.clipboard = game.add.group();
+	this.clipboard.x = 0;
+	this.clipboard.y = 400;
 
-	let ground = this.platforms.create(0, game.world.height - 64, "platform");
-	ground.scale.setTo(2,2);
-	ground.body.immovable = true;
+	this.board = this.clipboard.create(this.clipboard.x, this.clipboard.y, "clipboard_png");
+	this.metalClip = this.clipboard.create(this.clipboard.x + 185, this.clipboard.y + 55, "metalClipUp_png");
 
-	let plat = this.platforms.create(400, 400, "platform");
-	plat.body.immovable = true;
+	this.metalClip.inputEnabled = true;
+	this.metalClip.events.onInputDown.add(this.moveClipboard, this);
 
-	plat = this.platforms.create(-150, 250, "platform");
-	plat.body.immovable = true;
+	// STARS
+	this.statements = game.add.group();
+};
 
-    //STARS
-	this.stars = game.add.group();
-	this.stars.enableBody = true;
-	//CREATE 12 STARS
-	for (let i = 0; i < 12; i++){
-		this.stars.create(i*70, 0, "star");
-		star.body.gravity.y = 200;
-		star.body.bounce.y = Math.random() * 0.2 + 0.1;
+gameplayState.prototype.update = function() {
+	// Nothing yet
+};
+
+gameplayState.prototype.moveClipboard = function() {
+	if (this.clipboard.y == -100) {
+		game.add.tween(this.clipboard).to( { y: 400 }, 500, Phaser.Easing.Quadratic.Out, true);
+		this.metalClip.loadTexture("metalClipUp_png");
 	}
-
-
-	//PLAYER
-	this.player = game.add.sprite(32, 150, game.world.height - 150, "onion");
-	game.Physics.arcade.enable(this.player);
-	this.player.body.gravity.y = 300;
-	this.player.body.bounce.y = 0.5
-	this.player.body.collideWorldBounds = true;
-
-	this.player.animations.add("left", [0,1,2,3], 10, true);
-	this.player.animations.add("right", [5,6,7,8], 10, true);
-
-	//SCORE
-	this.scoreText = game.add.text(16, 16, "Score: 0", {fontSize: "32pt", fill:"#000000"});
-	this.score = 0;
-
-	//CONTROLS
-	this.cursors = game.input.keyboard.createCursorKeys();
-
-
-}
-
-gameplayState.prototype.update = function(){
-	game.physics.arcade.collide(this.player, this.platforms);
-	game.physics.arcade.collide(this.stars, this.platforms);
-
-	game.physics.arcade.collide.overlap(this.player, this.stars, this.collectStar);
-
-	//Reset horizontal movement 
-	this.player.body.velocity.x = 0;
-	
-	if(this.cursors.left.isDown){
-		this.player.animations.play("left");
-		this.player.body.velocity.x = -150;
-
+	else {
+		game.add.tween(this.clipboard).to( { y: -100 }, 500, Phaser.Easing.Quadratic.Out, true);
+		this.metalClip.loadTexture("metalClipDown_png");
 	}
-	else if(this.cursors.right.isDown){
-		this.player.animations.play("right");
-		this.player.body.velocity.x = 150;
-
-	} else {
-		this.player.animations.stop();
-		this.player.frame = 4;
-	}
-	
-	if(this.cursors.up.isDown && this.player.body.touching.down){
-		this.player.body.velocity.y = -300;
-	}
-
-
-}
-
-gameplayState.prototype.collectStar = function(player, star){
-	star.kill;
 }

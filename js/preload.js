@@ -4,14 +4,13 @@ let preloadState = function(){
 }
 
 preloadState.prototype.preload = function(){
-	game.load.image("platform", "assets/platform.png");
-	game.load.image("sky", "assets/sky.png");
-	game.load.image("star", "assets/star.png");
-	game.load.spritesheet("onion", "assets/onion.png", 32, 48);
+	game.load.image("clipboard_png", "assets/clipboard.png");
+	game.load.image("metalClipUp_png", "assets/metalClipUp.png");
+	game.load.image("metalClipDown_png", "assets/metalClipDown.png");
 }
 
 preloadState.prototype.create = function(){
-	game.state.start("Intro");
+	game.state.start("Gameplay");
 }
 
 preloadState.prototype.update = function(){
