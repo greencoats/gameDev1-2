@@ -3,10 +3,13 @@ let gameplayState = function(){
 };
 
 gameplayState.prototype.preload = function() {
-
+	game.load.json('character','exampleJSON.json');
 };
 
 gameplayState.prototype.create = function() {
+	let charData = game.cache.getJSON('character');
+	console.log(charData);
+
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
 	this.clipboard.y = 400;
