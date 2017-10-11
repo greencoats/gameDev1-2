@@ -1,3 +1,5 @@
+let timeToCopmlete = 2000; //Time in milliseconds to complete the dialogue
+
 let gameplayState = function(){
 
 };
@@ -12,7 +14,7 @@ gameplayState.prototype.create = function() {
 	timer = game.time.create(false);
 
 	//After 2 seconds, updateCounter is called
-	timer.loop(2000, updateCounter, this);
+	timer.loop(timeToCopmlete, updateCounter, this);
 	
 	//Timer start
 	timer.start();
@@ -49,5 +51,7 @@ gameplayState.prototype.moveClipboard = function() {
 }
 
 function updateCounter() {
+	//Switch timer variable to the next value it needs to be 
+
 	//Call timeup state here (most likely just going to the next dialogue line)
 }
