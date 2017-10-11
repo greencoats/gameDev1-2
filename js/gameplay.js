@@ -1,3 +1,5 @@
+let timeToCopmlete = 2000; //Time in milliseconds to complete the dialogue
+
 let gameplayState = function(){
 
 };
@@ -7,6 +9,16 @@ gameplayState.prototype.preload = function() {
 };
 
 gameplayState.prototype.create = function() {
+
+	//Create the timer
+	timer = game.time.create(false);
+
+	//After 2 seconds, updateCounter is called
+	timer.loop(timeToCopmlete, updateCounter, this);
+	
+	//Timer start
+	timer.start();
+
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
 	this.clipboard.y = 400;
@@ -24,6 +36,8 @@ gameplayState.prototype.create = function() {
 
 gameplayState.prototype.update = function() {
 	// Nothing yet
+
+	game.debug.text('Time to complete dialogue: ' + timer.duration.toFixed(0), 32, 32);
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -35,4 +49,10 @@ gameplayState.prototype.moveClipboard = function() {
 		game.add.tween(this.clipboard).to( { y: -250 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipDown_png");
 	}
+}
+
+function updateCounter() {
+	//Switch timer variable to the next value it needs to be 
+
+	//Call timeup state here (most likely just going to force next dialogue line)
 }
