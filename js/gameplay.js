@@ -11,7 +11,6 @@ gameplayState.prototype.preload = function() {
 gameplayState.prototype.create = function() {
 
 	let charData = game.cache.getJSON('character');
-	console.log(charData);
 
 	//Create the timer
 	timer = game.time.create(false);
