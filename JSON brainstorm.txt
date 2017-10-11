@@ -13,3 +13,8 @@ Array of Dialogue objects:
     
 CONTENTS OF CLIPBOARD JSON:
 Array of summaries for each case
+
+Questions:
+Do we want the clipboard summary to update as the case goes on?
+Should there be any other data in the clipboard JSON?
+Do we want to create a JSON to hold some kind of beginning dialogue for each case?
