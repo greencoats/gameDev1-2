@@ -13,6 +13,18 @@ gameplayState.prototype.create = function() {
 
 	this.charData = game.cache.getJSON('character');
 	this.clipboardData = game.cache.getJSON('clipboard');
+	//get character data from JSON file and create text object
+	this.dia = game.add.text(20,300,this.charData.dialogues[0].question, {fontSize: '32pt', fill:"#ffffff"});
+
+
+	//variables to keep track of the character and statement we are on
+	this.currChar = 0;
+	this.currDialogues = 0;
+	this.currSegment = 0;
+	this.isQuestion = true;
+
+	//CONTROLS
+	this.cursors = game.input.keyboard.createCursorKeys();
 
 	//Create the timer
 	timer = game.time.create(false);
@@ -42,10 +54,51 @@ gameplayState.prototype.create = function() {
 	this.statements = game.add.group();
 };
 
-gameplayState.prototype.update = function() {
-	// Nothing yet
+gameplayState.prototype.UpdateText = function(){
+	console.log(this.currSegment);
+	console.log(this.charData.dialogues[this.currDialogues].segments.length);
+	if(this.isQuestion == true){
+		this.dia.text = this.charData.dialogues[this.currDialogues].question;
+		this.isQuestion = false;
+	}
+	else if(this.currSegment < this.charData.dialogues[this.currDialogues].segments.length){
+		this.dia.text = this.charData.dialogues[this.currDialogues].segments[this.currSegment];
+		this.currSegment++;
+	}
+	else if (this.currDialogues < this.charData.dialogues.length-1){
+		console.log("here");
+		this.currSegment = 0;
+		this.currDialogues++;
+		this.isQuestion = true;
+		this.UpdateText();
+	}
+	else{
+		this.currChar++;
+		this.currSegment = 0;
+		this.currDialogues = 0;
+		this.isQuestion = true;
+	}
+	return;
+};
 
+gameplayState.prototype.right = function(){
+	this.UpdateText();
+};
+
+gameplayState.prototype.left = function(){
+	this.UpdateText();
+};
+
+gameplayState.prototype.update = function() {
+	if(this.cursors.left.downDuration(5)){
+    this.UpdateText();
+  }
+  else if(this.cursors.right.downDuration(5)){
+    this.UpdateText();
+  }
 	game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
+
+
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -57,7 +110,7 @@ gameplayState.prototype.moveClipboard = function() {
 		game.add.tween(this.clipboard).to( { y: -250 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipDown_png");
 	}
-}
+};
 
 function updateCounter() {
 	//Stop the timer
