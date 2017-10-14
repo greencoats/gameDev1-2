@@ -35,8 +35,7 @@ gameplayState.prototype.create = function() {
 	this.metalClip.events.onInputDown.add(this.moveClipboard, this);
 
 	//Add initial synopsis text to clipboard
-	console.log(this.charData.name);
-	console.log(this.clipboardData.summaries);
+	let synopText = this.clipboardData.summaries[0];
 	let synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,"Text",{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
 
 	// STARS
