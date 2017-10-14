@@ -78,6 +78,15 @@ gameplayState.prototype.UpdateText = function(){
 		this.currDialogues = 0;
 		this.isQuestion = true;
 	}
+
+	//Hardcoded segment for determining when to update clipboard synopsis
+	if(this.currDialogues==1 && this.currSegment==1) {
+		this.synopsis.text += this.clipboardData.summaries[0][1];
+	}
+	else if(this.currDialogues==2 && this.currSegment==1) {
+		this.synopsis.text += this.clipboardData.summaries[0][2];
+	}
+
 	return;
 };
 
