@@ -47,6 +47,9 @@ gameplayState.prototype.create = function() {
 	this.synopText = this.clipboardData.summaries[0][0];
 	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
 
+	//Setup abbreviation text into clipboard group
+	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"",{font:'24px Arial', fill: '#ff0202', align: 'left'},this.clipboard);
+
 	// STARS
 	this.statements = game.add.group();
 };
@@ -59,11 +62,13 @@ gameplayState.prototype.UpdateText = function(){
 		this.isQuestion = false;
 	}
 	else if(this.currSegment < this.charData.dialogues[this.currDialogues].segments.length){
+		this.updateClipboard();
 		this.dia.text = this.charData.dialogues[this.currDialogues].segments[this.currSegment];
 		this.currSegment++;
 		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charData.dialogues.length-1){
+		this.updateClipboard();
 		console.log("here");
 		this.currSegment = 0;
 		this.currDialogues++;
@@ -72,6 +77,7 @@ gameplayState.prototype.UpdateText = function(){
 		this.updateCounter();
 	}
 	else{
+		this.updateClipboard();
 		this.currChar++;
 		this.currSegment = 0;
 		this.currDialogues = 0;
@@ -100,10 +106,10 @@ gameplayState.prototype.left = function(){
 
 gameplayState.prototype.update = function() {
 	if(this.cursors.left.downDuration(5)){
-    this.UpdateText();
+	this.UpdateText();
   }
   else if(this.cursors.right.downDuration(5)){
-    this.UpdateText();
+	this.UpdateText();
   }
 	game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
 
@@ -132,4 +138,10 @@ gameplayState.prototype.updateCounter = function() {
 	
 	//start the timer again
 	timer.start();
+}
+
+gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
+	if(this.charData.dialogues[this.currDialogues].abbr[this.currSegment-1] != null) { //Make sure the dialogue isn't currently reading a question
+		this.abbrev.text += this.charData.dialogues[this.currDialogues].abbr[this.currSegment-1];
+	}
 }
