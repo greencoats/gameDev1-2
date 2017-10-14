@@ -11,8 +11,8 @@ gameplayState.prototype.preload = function() {
 
 gameplayState.prototype.create = function() {
 
-	let charData = game.cache.getJSON('character');
-	let clipboardData = game.cache.getJSON('clipboard');
+	this.charData = game.cache.getJSON('character');
+	this.clipboardData = game.cache.getJSON('clipboard');
 
 	//Create the timer
 	timer = game.time.create(false);
@@ -35,8 +35,8 @@ gameplayState.prototype.create = function() {
 	this.metalClip.events.onInputDown.add(this.moveClipboard, this);
 
 	//Add initial synopsis text to clipboard
-	let synopText = this.clipboardData.summaries[0];
-	let synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,"Text",{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
+	this.synopText = this.clipboardData.summaries[0][0];
+	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
 
 	// STARS
 	this.statements = game.add.group();
