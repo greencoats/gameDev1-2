@@ -7,6 +7,7 @@ preloadState.prototype.preload = function(){
 	game.load.image("clipboard_png", "assets/clipboard.png");
 	game.load.image("metalClipUp_png", "assets/metalClipUp.png");
 	game.load.image("metalClipDown_png", "assets/metalClipDown.png");
+	game.load.image("textBubble_png", "assets/bubble.png")
 }
 
 preloadState.prototype.create = function(){
