@@ -3,13 +3,16 @@ Tasks DONE:
 -Setting up a general template for JSON file for each character dialogue
 -Setting up a general template for JSON file for clipboard data
 -Figure out how to load JSON files in code
+-Create clipboard synopsis
+-Display clipboard synopsis on clipboard
 ====================
 TODO by Saturday 10/14:
 -Load dialogue into JSONS
--Create clipboard synopsis
--Display clipboard synopsis on clipboard
 -Position timer correctly
+
+-Sync up abbreviated statements with real statements on clipboard
 -Configure timer to sync up with dialogue appropriately
+
 -Fail state/Checkpointing
 
 -Audio if it's ready ?

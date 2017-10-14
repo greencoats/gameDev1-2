@@ -1,5 +1,3 @@
-let timeToCopmlete = 5000; //Time in milliseconds to complete the dialogue
-
 let gameplayState = function(){
 
 };
@@ -28,12 +26,11 @@ gameplayState.prototype.create = function() {
 
 	//Create the timer
 	timer = game.time.create(false);
+	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment];
+	console.log("Time to complete is " + this.timeToCopmlete);
 
-	//After 2 seconds, updateCounter is called
-	timer.loop(timeToCopmlete, updateCounter, this);
-
-	//Timer start
-	timer.start();
+	//After specified number of seconds, updateCounter is called
+	timer.loop(this.timeToCopmlete, this.updateCounter, this);
 
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
@@ -57,13 +54,14 @@ gameplayState.prototype.create = function() {
 gameplayState.prototype.UpdateText = function(){
 	console.log(this.currSegment);
 	console.log(this.charData.dialogues[this.currDialogues].segments.length);
-	if(this.isQuestion == true){
+	if(this.isQuestion == true){ //Display question
 		this.dia.text = this.charData.dialogues[this.currDialogues].question;
 		this.isQuestion = false;
 	}
 	else if(this.currSegment < this.charData.dialogues[this.currDialogues].segments.length){
 		this.dia.text = this.charData.dialogues[this.currDialogues].segments[this.currSegment];
 		this.currSegment++;
+		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charData.dialogues.length-1){
 		console.log("here");
@@ -71,12 +69,14 @@ gameplayState.prototype.UpdateText = function(){
 		this.currDialogues++;
 		this.isQuestion = true;
 		this.UpdateText();
+		this.updateCounter();
 	}
 	else{
 		this.currChar++;
 		this.currSegment = 0;
 		this.currDialogues = 0;
 		this.isQuestion = true;
+		this.updateCounter();
 	}
 
 	//Hardcoded segment for determining when to update clipboard synopsis
@@ -121,11 +121,15 @@ gameplayState.prototype.moveClipboard = function() {
 	}
 };
 
-function updateCounter() {
+gameplayState.prototype.updateCounter = function() {
 	//Stop the timer
 	timer.stop();
 
 	//Switch timer variable to the next value it needs to be
-
-	//Call timeup state here (most likely just going to force next dialogue line) and start the timer
+	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment];
+	console.log("Time to complete is " + this.timeToCopmlete);
+	timer.loop(this.timeToCopmlete, this.updateCounter, this);
+	
+	//start the timer again
+	timer.start();
 }
