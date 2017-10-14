@@ -29,8 +29,8 @@ gameplayState.prototype.create = function() {
 	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment];
 	console.log("Time to complete is " + this.timeToCopmlete);
 
-	//After specified number of seconds, updateCounter is called
-	timer.loop(this.timeToCopmlete, this.updateCounter, this);
+	//After specified number of seconds, updateText is called
+	timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
 
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
@@ -131,13 +131,15 @@ gameplayState.prototype.updateCounter = function() {
 	//Stop the timer
 	timer.stop();
 
-	//Switch timer variable to the next value it needs to be
-	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment-1];
-	console.log("Time to complete is " + this.timeToCopmlete);
-	timer.loop(this.timeToCopmlete, this.updateCounter, this);
-	
-	//start the timer again
-	timer.start();
+	if(this.charData.dialogues[this.currDialogues].timer[this.currSegment-1] != null) {
+		//Switch timer variable to the next value it needs to be
+		this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment-1];
+		console.log("Time to complete is " + this.timeToCopmlete);
+		timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
+
+		//start the timer again
+		timer.start();
+	}
 }
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
