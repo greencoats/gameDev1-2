@@ -4,5 +4,8 @@
         ["Synopsis 2 Part A", "Synopsis 2 Part B"],
         ["Synopsis 3 Part A", "Synopsis 3 Part B", "Synopsis 3 Part C","Synopsis 3 Part D"]
     ],
-    "statements" : ["Suspect has dark hair", "Suspect is male", "Suspect left the bar at around 9:00pm" ]
+    "statements" : [
+        ["Suspect has dark hair", "Suspect is male", "Suspect left the bar at around 9:00pm"],
+        ["Suspect has blonde hair","Suspect was seen fleeing the scene with a knife"] 
+    ]
 }
