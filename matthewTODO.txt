@@ -8,7 +8,7 @@ Tasks DONE:
 -Configure timer to sync up with dialogue appropriately
 -Sync up abbreviated statements with real statements on clipboard
 ====================
-TODO by Saturday 10/14:
+TODO:
 -Load dialogue into JSONS
 -Position timer correctly
 
