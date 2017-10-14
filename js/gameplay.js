@@ -126,7 +126,7 @@ gameplayState.prototype.updateCounter = function() {
 	timer.stop();
 
 	//Switch timer variable to the next value it needs to be
-	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment];
+	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment-1];
 	console.log("Time to complete is " + this.timeToCopmlete);
 	timer.loop(this.timeToCopmlete, this.updateCounter, this);
 	
