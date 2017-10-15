@@ -1,0 +1,17 @@
+Tasks DONE:
+-Setting up an in game timer
+-Setting up a general template for JSON file for each character dialogue
+-Setting up a general template for JSON file for clipboard data
+-Figure out how to load JSON files in code
+-Create clipboard synopsis
+-Display clipboard synopsis on clipboard
+-Configure timer to sync up with dialogue appropriately
+-Sync up abbreviated statements with real statements on clipboard
+====================
+TODO by Saturday 10/14:
+-Load dialogue into JSONS
+-Position timer correctly
+
+-Fail state/Checkpointing
+
+-Audio if it's ready ?

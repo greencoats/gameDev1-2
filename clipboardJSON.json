@@ -1,7 +1,7 @@
 {
-    "Summaries" : [
-        "There has been a murder at the nightclub. Suspect initially identified as male caucassian mid 20s, cause of death appears to be blunt force trauma.",
-        "There was a stabbing at the coffee shop around closing time (8:45pm). Cause of death is a stab wound to the abdomen. No witnesses can be located at present time.",
-        "A hispanic man was badly beaten by two unidentified males wearing masks. Officer on duty chased the two suspects into an alley where they prompty dissapeared. Crime occured at 1:20pm"
+    "summaries" : [
+        ["Synopsis Part A. ", "Synopsis Part B. ", "Synopsis Part C"],
+        ["Synopsis 2 Part A. ", "Synopsis 2 Part B"],
+        ["Synopsis 3 Part A. ", "Synopsis 3 Part B. ", "Synopsis 3 Part C. ","Synopsis 3 Part D"]
     ]
 }
