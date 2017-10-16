@@ -1,0 +1,126 @@
+3 Case/Chapter Plot:
+Prologue/Tutorial: The First Strike of Bad News
+NYPD officer Randy Jurgensen is called in by his boss. He outlines preliminary details for a worrisome case involving many murders at and around gay bars. Jurgensen’s boss asks him a few questions on what he might think about these murders. (2-3 questions tops. This will get the player acclimated with the game mechanics like swiping left, right, and up.)
+Chapter 1: Murders at the Local Gay Bars 
+There’s been a few murders thought to have happens all in the same area, and Randy Jurgensen has been assigned to the case. He decides to go undercover and gather evidence. 
+His boss points him to the local gay bar as the ideal place to gather initial evidence.
+After investigating the bar, Jurgensen finds enough to believe that the murderer is related in some way to Steve Burns, an officer Jurgensen is friendly with. Jurgensen takes a visit to Burn’s department.
+Chapter 2: Investigating Steve Burn’s Workplace
+Upon arrival to Burn’s office, department police are taking witnesses in and gathering evidence for Burn’s current case. 
+Jurgensen gets permission to gather evidence of his own. The evidence he gathers points to officer Burns being the murderer. 
+Jurgensen is skeptical but nonetheless puts Burns under watch by his police department. Jurgensen moves on to the next case, and surveys the local neighborhood for some findings.
+Chapter 3: Closure in the Neighborhood
+Jurgensen learns from the locals that a shady individual has been snooping around the area lately. Descriptions seem to point to the man in question dressing like a person who would frequent an S&M bar. Jurgensen recalls similar evidence at Burn’s place.
+Jurgensen decides to take a visit to Burn’s office once more and talk to Burn’s associates. Now that Burns has already been convicted of the first murder, his associates are more willing to freely talk about what’s been going on behind the scenes. Jurgensen learns that Burns has been also going undercover at the gay bars, but a lot of details suggest he is the murderer.
+Jurgensen confirms that Burns is the murderer and puts him behind bars.
+
+
+Level 1 dialogue: at the bar 
+People to talk to: bartender, frequent customer, custodian
+Bartender dialogue lines: 
+Intro: “Hmm? Yeah, I’m the bartender here. Whatcha want?”
+“Oh, the murders round here lately? Yeah, I’ve heard some things.”
+“If I may be so bold, there’s been a guy who looks kind of like you roamin’ around these parts. Yeah, you an’ him strike a mirror image.”
+“Name? I dunno.”
+“The custodian works here day in an’ day out. He’s got a pretty good idea of what’s goin’ on too.”
+Frequent Customer dialogue lines:
+Intro: “Yeah, I come here often. Haven’t seen you before though.”
+“The bartender? He’s a pretty good fellow. Good tender too.”
+“Murders, you say? Haven’t heard much, I’m afraid.”
+“Another guy, a friend of a friend, knows about it. The other day, he said something about a murder. That some guy’s been dressing as one of us.”
+“I don’t recall him giving a name. But I’d bet money that his last name is Smith.” Contradiction
+“My friend’s friend? He’s part of the NYPD.”
+Custodian dialogue lines:
+Intro: “Yep, I’m the custodian. What brings you here tonight?”
+“I guess this isn’t idle chitchat, is it? The murders are getting folks riled up.”
+“Recently, we’ve gotten a new regular. Nice guy, but I can’t help but wonder if he’s up to no good.”
+“Name? He goes by Stevenson, but I’ve heard whispers of his real last name being Burns.”
+“Ah that customer over there? Yeah, he comes by just about every night. I think you can trust him.” Contradiction
+Level 2 dialogue lines: at Burn’s police department
+People to talk to: burns’ associate, witness
+Witness dialogue lines
+Intro: “Oh, yes, I saw one of the murders right before my eyes.”
+“Uh, the guy was wearing a ragged brown shirt. The murderer was.” Contradiction
+“He stabbed his victim with what looked like a pocket knife from afar.”
+“No no no, I don’t think it could’ve been officer Burns. I mean, the murderer looked like a street thug!” Contradiction
+“Defining features…um, maybe his curly mustache? Yeah, it was pretty noticeable.”
+Burns’ Associate dialogue lines:
+Intro: “You’re Randy Jurgensen, right? Pleasure to meet you, good sir.”
+“You think Burns was the murderer? Let me know when you’re ready to talk some sense.” Contradiction
+“The victim? He had a bunch of stab marks on his body. No question the weapon of choice was a knife.”
+“Most reports say the suspect wore clean attire but covered his face.”
+“Burns? Yeah, he has a mustache. But why do you ask?”
+“Yeah, the details we’ve got seem to point to these murders as lure and kill.”
+“Burns won’t hide anything.” Contradiction
+Level 3: neighborhood where dead bodies are dumped.
+People to talk to: local man, local gang boss
+Local man dialogue lines:
+Intro: “Looking into the murders? Finally, someone’s gonna drag the damn corpses out of here.”
+“Officer Burns? Don’t know the guy. Though there was a time where a  guy in police uniform dragged the dead bodies.”
+“The victims seem to vary in dress. I dunno if they all go to the gay bar.” Contradiction
+“I mean, yeah, this area is pretty rough around the edges, with the gangs and all. But the bodies are piling up really fast.”
+“The gangs usually know a lot of the gossip that goes around these parts.”
+“Well, yeah, the guy seemed really suspicious. We didn’t wanna get into sticky business ourselves.”
+Gang leader dialogue lines:
+Intro: “What, Mr. Cop? Here to arrest me?”
+“I don’t know nothing, man. Just some gay dudes getting murdered.”
+“Alright, alright. Yeah, them guys getting tossed aside faster than we do our dirty work.”
+“Burns. Yeah, that sounds about right. I heard some cop been sneaking into gay bars. Dressin’ as one of ‘em.”
+“We not that big a group. I don’t got the newest news for ya.” Contradiction
+“The cop? He got this nice mustache, I tell ya.”
+
+Suspect looks like me
+Custodian is knowledgeable
+Suspect disguises as gay man
+Suspect’s last name is Smith
+Suspicious new frequent customer
+Suspect goes by Stevenson
+Suspect’s last name is Burns
+Can trust frequent customer
+Suspect wore brown ragged shirt
+Murder weapon was pocket knife 
+Murderer looked homeless
+Murder had curly mustache
+Victim had stab marks
+Suspect dressed cleanly
+Suspect wore mask
+Burns has a mustache
+Suspect lured out the victim
+Burns does his job
+Suspect wore police uniform 
+Suspect disposed dead bodies
+Victims wore different attire
+Gangs have reliable information
+Policeman snuck into gay bar
+Policeman dressed as gay
+Gang info network is slow
+
+All these can be sorted under true or false by Randy (the player) If facts repeat just use the text for the first time it’s mentioned.
+
+Case 1 Pre-Investigation Notes:
+Suspects/People of interest: 
+Officer Steve Burns
+Citizen William Smith
+Citizen Michael Stevenson
+Investigator Malik Rosen
+General Info:
+Criminal dresses up as a gay man
+Criminal frequently visits gay bars
+Case 2 Pre-Investigation Notes:
+Person of interest: Officer Steve Burns
+Victims killed with knife
+Criminal lured the victim alone before killing
+Criminal wore officer’s attire
+Officer Burns has a mustache
+Case 3 Pre-Investigation Notes:
+Person of interest: Officer Steve Burns
+Criminal disposes of the bodies in a neighborhood alleyway 
+Officer Burns was seen in this neighborhood
+Local gangs potentially have connections to the murderer
+
+
+
+
+
+
+
