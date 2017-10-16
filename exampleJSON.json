@@ -3,21 +3,26 @@
     "picture": "/assets/images/john_doe.png",
 
     "dialogues": [
-        "dialogue" {
+        {
             "question": "introduction",
             "segments": ["Hi my name is Joe", "I am 25 years old", "I was here yesterday at the time of the crime"],
             "contradiction": [false, false, true],
+            "timer": [3333,4444,5555],
+            "abbr": ["His name is Joe\n", "Joe is 25\n", "Joe witnessed the crime\n"]
         },
-        "dialogue1" {
+        {
             "question": "What were you doing the night of the crime?",
             "segments": ["I was here the night of the crime", "I was busy cleaning the bar counter"],
             "contradiction": [false, true],
+            "timer": [6666,7777],
+            "abbr":  ["Joe was at the bar during the crime\n", "Joe was cleaning the counter\n"]
         },
-        "dialogue1" {
+        {
             "question": "How did you know the crime happened?",
             "segments": ["I heard a loud crash, it sounded tremendously loud"],
             "contradiction": [false],
+            "timer": [8888],
+            "abbr" : ["Joe claims to have heard a loud crash\n"]
         }
     ]
-    
  }

@@ -1,8 +1,8 @@
-<!doctype html> 
-<html lang="en"> 
-<head> 
+<!doctype html>
+<html lang="en">
+<head>
 	<meta charset="UTF-8" />
-	<title>Learning Phaser</title>
+    <title>Project 2</title>
 
 	<! link all the scripts >
 	<script type="text/javascript" src="js/phaser.min.js"></script>
@@ -20,31 +20,14 @@
         }
     </style>
 </head>
-
 <body>
-
-
-	
-	<div id="swipezone">
-		Swipe me
-	</div>
 
 <script type="text/javascript">
 
-	var game = new Phaser.Game(750, 1335, Phaser.AUTO, 'Game 2', { create: create, update: update });
+	let game = new Phaser.Game(750, 1335, Phaser.AUTO, 'Game 2', { create: create, update: update });
 
-	
 	function create() {
-		/*
-		let style = {
-			font: "64px Arial",
-	        fill: "#ffffff",
-	        align: "center"
-	    }
-	    //let text = game.add.text(game.world.centerX, game.world.centerY, "Hello, world!", style);
 
-	    //text.anchor.setTo(0.5, 0.5);
-		*/
 
 		game.state.add("Preload", preloadState);
 		game.state.add("Gameplay", gameplayState);
@@ -61,9 +44,6 @@
 
 
 	}
-
-
-	
 
 </script>
 
