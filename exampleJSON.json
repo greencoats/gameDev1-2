@@ -2,27 +2,51 @@
     "name": "John Doe",
     "picture": "/assets/images/john_doe.png",
 
+    "intro": [
+        {
+            "question": "Hey there, how are you doing?",
+            "segments": ["I am doing well","How are you?"]
+        },
+        {
+            "question": "I am not doing too bad myself. I am going to have a few questions for you.",
+            "segments": ["Questions?","...Ok go on ahead","I haven't got all day though"]
+        }
+    ],
+
+    "introTransition" : "Time to learn a few things",
+
     "dialogues": [
         {
             "question": "introduction",
-            "segments": ["Hi my name is Joe", "I am 25 years old", "I was here yesterday at the time of the crime"],
+            "segments": ["Hi my name is John", "I am 25 years old", "I was here yesterday at the time of the crime"],
             "contradiction": [false, false, true],
             "timer": [3333,4444,5555],
-            "abbr": ["His name is Joe\n", "Joe is 25\n", "Joe witnessed the crime\n"]
+            "abbr": ["His name is John\n", "John is 25\n", "John witnessed the crime\n"]
         },
         {
             "question": "What were you doing the night of the crime?",
             "segments": ["I was here the night of the crime", "I was busy cleaning the bar counter"],
             "contradiction": [false, true],
             "timer": [6666,7777],
-            "abbr":  ["Joe was at the bar during the crime\n", "Joe was cleaning the counter\n"]
+            "abbr":  ["John was at the bar during the crime\n", "John was cleaning the counter\n"]
         },
         {
             "question": "How did you know the crime happened?",
             "segments": ["I heard a loud crash, it sounded tremendously loud"],
             "contradiction": [false],
             "timer": [8888],
-            "abbr" : ["Joe claims to have heard a loud crash\n"]
+            "abbr" : ["John claims to have heard a loud crash\n"]
         }
-    ]
+    ],
+
+    "questionsTransition" : "This is probably all that I'm going to learn from this guy",
+
+    "outro" : [
+        {
+            "question": "I think that's all for now, thanks for your cooperation",
+            "segments": ["Sure thing","Have a good day officer"]
+        }
+    ],
+
+    "outroTransition" : "I think that's enough investigating for now"
  }
