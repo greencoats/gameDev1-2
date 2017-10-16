@@ -9,24 +9,33 @@ gameplayState.prototype.preload = function() {
 
 gameplayState.prototype.create = function() {
 
-	this.charData = game.cache.getJSON('character');
-	this.clipboardData = game.cache.getJSON('clipboard');
-	//get character data from JSON file and create text object
-	this.dia = game.add.text(20,300,this.charData.dialogues[0].question, {fontSize: '32pt', fill:"#ffffff"});
-
-
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
 	this.currDialogues = 0;
 	this.currSegment = 0;
+	this.currChar = 0;
+	this.maxChar = 3;
 	this.isQuestion = true;
+
+	//JSON Data held in array
+	this.charArr = [this.charData,this.charData1,this.charData2];
+	this.charArr[0] = game.cache.getJSON('character');
+	this.charArr[1] = game.cache.getJSON('character');
+	this.charArr[2] = game.cache.getJSON('character');
+	this.clipboardData = game.cache.getJSON('clipboard');
+	//get character data from JSON file and create text object
+	this.dia = game.add.text(20,300,this.charArr[this.currChar].name, {fontSize: '32pt', fill:"#ffffff"});
 
 	//CONTROLS
 	this.cursors = game.input.keyboard.createCursorKeys();
 
+	//SCORE
+	this.maxCont = 2;
+	this.currCont = 0;
+
 	//Create the timer
 	timer = game.time.create(false);
-	this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment];
+	this.timeToCopmlete = this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
 	console.log("Time to complete is " + this.timeToCopmlete);
 
 	//After specified number of seconds, updateText is called
@@ -54,31 +63,45 @@ gameplayState.prototype.create = function() {
 	this.statements = game.add.group();
 };
 
+gameplayState.prototype.update = function() {
+	if(this.cursors.left.downDuration(5)){
+    this.left();
+  }
+  else if(this.cursors.right.downDuration(5)){
+    this.right();
+  }
+	game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
+
+
+};
+
+gameplayState.prototype.Conclude = function(){
+	console.log(this.currCont + "/" + this.maxCont);
+};
+
 gameplayState.prototype.UpdateText = function(){
-	console.log(this.currSegment);
-	console.log(this.charData.dialogues[this.currDialogues].segments.length);
 	if(this.isQuestion == true){ //Display question
-		this.dia.text = this.charData.dialogues[this.currDialogues].question;
 		this.isQuestion = false;
 	}
-	else if(this.currSegment < this.charData.dialogues[this.currDialogues].segments.length){
+	else if(this.currSegment < this.charArr[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
-		this.dia.text = this.charData.dialogues[this.currDialogues].segments[this.currSegment];
 		this.currSegment++;
 		this.updateCounter();
 	}
-	else if (this.currDialogues < this.charData.dialogues.length-1){
+	else if (this.currDialogues < this.charArr[this.currChar].dialogues.length-1){
 		this.updateClipboard();
-		console.log("here");
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
-		this.UpdateText();
 		this.updateCounter();
 	}
 	else{
 		this.updateClipboard();
 		this.currChar++;
+		if(this.currChar >= this.maxChar){
+			this.Conclude();
+			return;
+		}
 		this.currSegment = 0;
 		this.currDialogues = 0;
 		this.isQuestion = true;
@@ -93,7 +116,18 @@ gameplayState.prototype.UpdateText = function(){
 		this.synopsis.text += this.clipboardData.summaries[0][2];
 	}
 
+	this.PrintText();
+
 	return;
+};
+
+gameplayState.prototype.PrintText = function(){
+	if(this.isQuestion == true){
+		this.dia.text = this.charArr[this.currChar].dialogues[this.currDialogues].question;
+	}
+	else{
+		this.dia.text = this.charArr[this.currChar].dialogues[this.currDialogues].segments[this.currSegment];
+	}
 };
 
 gameplayState.prototype.right = function(){
@@ -101,26 +135,10 @@ gameplayState.prototype.right = function(){
 };
 
 gameplayState.prototype.left = function(){
+	if(this.charArr[this.currChar].dialogues[this.currDialogues].contradiction[this.currSegment] && !this.isQuestion){
+		this.currCont++;
+	}
 	this.UpdateText();
-};
-
-gameplayState.prototype.update = function() {
-	if(this.cursors.left.downDuration(5)){
-<<<<<<< HEAD
-    this.right();
-  }
-  else if(this.cursors.right.downDuration(5)){
-    this.right();
-=======
-	this.UpdateText();
-  }
-  else if(this.cursors.right.downDuration(5)){
-	this.UpdateText();
->>>>>>> refs/remotes/origin/dev
-  }
-	game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
-
-
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -138,9 +156,9 @@ gameplayState.prototype.updateCounter = function() {
 	//Stop the timer
 	timer.stop();
 
-	if(this.charData.dialogues[this.currDialogues].timer[this.currSegment-1] != null) {
+	if(this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment-1] != null) {
 		//Switch timer variable to the next value it needs to be
-		this.timeToCopmlete = this.charData.dialogues[this.currDialogues].timer[this.currSegment-1];
+		this.timeToCopmlete = this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment-1];
 		console.log("Time to complete is " + this.timeToCopmlete);
 		timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
 
@@ -150,7 +168,7 @@ gameplayState.prototype.updateCounter = function() {
 }
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
-	if(this.charData.dialogues[this.currDialogues].abbr[this.currSegment-1] != null) { //Make sure the dialogue isn't currently reading a question
-		this.abbrev.text += this.charData.dialogues[this.currDialogues].abbr[this.currSegment-1];
+	if(this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment-1] != null) { //Make sure the dialogue isn't currently reading a question
+		this.abbrev.text += this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment-1];
 	}
 }
