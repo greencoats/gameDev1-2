@@ -168,7 +168,7 @@ gameplayState.prototype.updateCounter = function() {
 }
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
-	if(this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment-1] != null) { //Make sure the dialogue isn't currently reading a question
-		this.abbrev.text += this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment-1];
+	if(this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
+		this.abbrev.text += this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
 	}
 }
