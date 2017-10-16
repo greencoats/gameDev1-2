@@ -85,10 +85,10 @@ gameplayState.prototype.left = function(){
 
 gameplayState.prototype.update = function() {
 	if(this.cursors.left.downDuration(5)){
-    this.UpdateText();
+    this.left();
   }
   else if(this.cursors.right.downDuration(5)){
-    this.UpdateText();
+    this.right();
   }
 	game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
 
