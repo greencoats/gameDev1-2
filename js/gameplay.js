@@ -82,6 +82,7 @@ gameplayState.prototype.Conclude = function(){
 gameplayState.prototype.UpdateText = function(){
 	if(this.isQuestion == true){ //Display question
 		this.isQuestion = false;
+		this.updateCounter();
 	}
 	else if(this.currSegment < this.charArr[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
@@ -156,19 +157,21 @@ gameplayState.prototype.updateCounter = function() {
 	//Stop the timer
 	timer.stop();
 
-	if(this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment-1] != null) {
+	if(this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment] != null) {
 		//Switch timer variable to the next value it needs to be
-		this.timeToCopmlete = this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment-1];
-		console.log("Time to complete is " + this.timeToCopmlete);
-		timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
+		if(!this.isQuestion) {
+			this.timeToCopmlete = this.charArr[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
+			console.log("Time to complete is " + this.timeToCopmlete);
+			timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
 
-		//start the timer again
-		timer.start();
+			//start the timer again
+			timer.start();
+		}
 	}
 }
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
-	if(this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment-1] != null) { //Make sure the dialogue isn't currently reading a question
-		this.abbrev.text += this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment-1];
+	if(this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
+		this.abbrev.text += this.charArr[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
 	}
 }
