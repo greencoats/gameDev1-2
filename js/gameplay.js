@@ -1,4 +1,4 @@
-let gameplayState = function(){
+let gameplayState = function() {
 
 };
 
@@ -14,11 +14,17 @@ gameplayState.prototype.create = function() {
 	this.speech.y = 295;
 
 	this.speechBubble = this.speech.create(this.speech.x, this.speech.y + 50, "speechBubble_png");
+	this.truthBubble = this.speech.create(this.speech.x + 625, this.speech.y + 125, "truth_png");
+	this.lieBubble = this.speech.create(this.speech.x + 25, this.speech.y + 125, "lie_png");
+	this.truthBubble.scale.setTo(0.5, 0.5);
+	this.lieBubble.scale.setTo(0.5, 0.5);
+
 	this.right = false;
 	this.left = false;
 
 	this.speechBubble.inputEnabled = true;
 	this.speechBubble.events.onInputDown.add(this.beginSwipe, this);
+	this.speechBubble.events.onInputUp.add(this.endSwipe, this);
 
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
@@ -33,11 +39,22 @@ gameplayState.prototype.create = function() {
 };
 
 gameplayState.prototype.update = function() {
-	//gameplayState.prototype.moveBubble();
+	if (this.swiping === true) {
+		if (this.startX > 325) {
+			if (game.input.worldX < 625) {
+				this.truthBubble.x = game.input.worldX;
+			}
+		}
+		else {
+			if (game.input.worldX > 25) {
+				this.lieBubble.x = game.input.worldX;
+			}
+		}
+	}
 };
 
 gameplayState.prototype.moveClipboard = function() {
-	if (this.clipboard.y == -215) {
+	if (this.clipboard.y === -215) {
 		game.add.tween(this.clipboard).to( { y: 425 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipUp_png");
 		game.add.tween(this.speech).to( { y: 295 }, 500, Phaser.Easing.Quadratic.Out, true);
@@ -47,21 +64,18 @@ gameplayState.prototype.moveClipboard = function() {
 		this.metalClip.loadTexture("metalClipDown_png");
 		game.add.tween(this.speech).to( { y: -345 }, 500, Phaser.Easing.Quadratic.Out, true);
 	}
-}
+};
 
-gameplayState.prototype.moveBubble = function () {
-	//this.textBubble.worldX = this.textBubble.worldX + deltaX;
-	//this.bubble.y += deltaY;
-	if (this.right == true) {
-		let tween = game.add.tween(this.speechBubble).to( { x: 200 }, 100, Phaser.Easing.Quadratic.Out, true);
-		tween.yoyo(true, 1);
+gameplayState.prototype.returnBubbles = function () {
+	if (this.right === true) {
+		let tween = game.add.tween(this.lieBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
+		//tween.yoyo(true, 1);
 		this.right = false;
-		//this.speechBubble.x = 1000;
-	} else if (this.left == true) {
-		let tween = game.add.tween(this.speechBubble).to( { x: -200 }, 100, Phaser.Easing.Quadratic.Out, true);
-		tween.yoyo(true, 1);
+	}
+	else if (this.left === true) {
+		let tween = game.add.tween(this.truthBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
+		//tween.yoyo(true, 1);
 		this.left = false;
-		//this.speechBubble.x = -1000;
 	}
 };
 
@@ -74,8 +88,7 @@ gameplayState.prototype.moveBubble = function () {
 gameplayState.prototype.beginSwipe = function() {
 	this.startX = game.input.worldX;
 	this.startY = game.input.worldY;
-	game.input.onDown.remove(this.beginSwipe, this);
-	game.input.onUp.add(this.endSwipe, this);
+	this.swiping = true;
 };
 
 // function to be called when the player releases the mouse/finger
@@ -83,18 +96,16 @@ gameplayState.prototype.endSwipe = function() {
 	// saving mouse/finger coordinates
 	this.endX = game.input.worldX;
 	this.endY = game.input.worldY;
+	this.swiping = false;
+
 	// determining x and y distance travelled by mouse/finger from the start
 	// of the swipe until the end
-	var distX = this.startX - this.endX;
+	let distX = this.startX - this.endX;
 	if (distX > 0) {
 		this.left = true;
-	} else if (distX < 0) {
+	}
+	else if (distX < 0) {
 		this.right = true;
 	}
-	this.moveBubble();
-
-	// stop listening for the player to release finger/mouse, let's start listening for the player to click/touch
-	game.input.onDown.add(this.beginSwipe, this);
-	game.input.onUp.remove(this.endSwipe, this);
-
+	this.returnBubbles();
 };
