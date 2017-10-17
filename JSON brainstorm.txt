@@ -12,8 +12,6 @@ Array of Dialogue objects:
         -Add something later for specifically pointing out which segment has a contradiction?
     -Abbreviation of each statement block for the clipboard
 
-=====================================
-
 CONTENTS OF CLIPBOARD JSON:
 Array of summaries for each case
 
