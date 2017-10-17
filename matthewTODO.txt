@@ -8,9 +8,8 @@ Tasks DONE:
 -Configure timer to sync up with dialogue appropriately
 -Sync up abbreviated statements with real statements on clipboard
 -Add intro and outro as well as transition data to JSON
-====================
+
 TODO by Saturday 10/14:
 -Load dialogue into JSONS
 -Position timer correctly
-
 -Audio if/when it's ready ?
