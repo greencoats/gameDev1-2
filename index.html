@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="js/chapterTwo.js"></script>
 	<script type="text/javascript" src="js/chapterThree.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
+	<script type="text/javascript" src="js/scoreScreen.js"></script>
 
     <style type="text/css">
         body {
@@ -30,12 +31,13 @@
 
 
 		game.state.add("Preload", preloadState);
-		game.state.add("Gameplay", gameplayState);
 		game.state.add("Menu", menuState);
+		game.state.add("Gameplay", gameplayState);
 		game.state.add("Chapter 1", chapterOneState);
 		game.state.add("Chapter 2", chapterTwoState);
 		game.state.add("Chapter 3", chapterThreeState);
 		game.state.add("Intro", introState);
+		game.state.add("Score", scoreState);
 
 		game.state.start("Preload");
 	}

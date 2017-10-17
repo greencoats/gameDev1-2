@@ -1,10 +1,10 @@
 let gameplayState = function(){
-
+	this.currentLevel = 0;
 };
 
 gameplayState.prototype.preload = function() {
 	game.load.json('character','exampleJSON.json');
-	game.load.json('clipboard','clipboardJSON.json')
+	game.load.json('clipboard','clipboardJSON.json');
 };
 
 gameplayState.prototype.create = function() {
@@ -76,7 +76,11 @@ gameplayState.prototype.update = function() {
 };
 
 gameplayState.prototype.Conclude = function(){
-	console.log(this.currCont + "/" + this.maxCont);
+	game.state.states["Score"].score = this.currCont;
+	game.state.states["Score"].maxScore = this.maxCont;
+	game.state.states["Score"].level = this.currentLevel;
+
+	game.state.start("Score");
 };
 
 gameplayState.prototype.UpdateText = function(){
