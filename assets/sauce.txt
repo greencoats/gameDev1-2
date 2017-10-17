@@ -1,2 +1,6 @@
+----- Images -----
 http://www.publicdomainpictures.net/view-image.php?image=40481&picture=grey-paper
 http://www.publicdomainpictures.net/view-image.php?image=228931&picture=clipboard-background
+
+----- Code -----
+http://www.emanueleferonato.com/2014/11/13/html5-swipe-controlled-sokoban-game-made-with-phaser/

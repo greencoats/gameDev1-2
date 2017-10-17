@@ -7,7 +7,7 @@ Tasks DONE:
 -Display clipboard synopsis on clipboard
 -Configure timer to sync up with dialogue appropriately
 -Sync up abbreviated statements with real statements on clipboard
-====================
+
 TODO:
 -Load dialogue  into JSONS
 -Position timer correctly
@@ -15,3 +15,10 @@ TODO:
 -Fail state/Checkpointing
 
 -Audio if it's ready ?
+=======
+-Add intro and outro as well as transition data to JSON
+
+TODO by Saturday 10/14:
+-Load dialogue into JSONS
+-Position timer correctly
+-Audio if/when it's ready ?
