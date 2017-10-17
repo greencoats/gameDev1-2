@@ -25,28 +25,49 @@ gameplayState.prototype.update = function() {
 // #####       SWIPING      #####
 // ##############################
 
-gameplayState.prototype.beginSwipe = function() {
+gameplayState.prototype.textSwipeBegin = function() {
 	// Save initial coordinates
 	this.startX = game.input.worldX;
-	this.startY = game.input.worldY;
-	this.swiping = true;
+	this.swipingText = true;
 };
 
-gameplayState.prototype.endSwipe = function() {
+gameplayState.prototype.textSwipeEnd = function() {
 	// Save ending coordinates
 	this.endX = game.input.worldX;
-	this.endY = game.input.worldY;
-	this.swiping = false;
+	this.swipingText = false;
 
 	// find x distance travelled from the swipe start to end
 	let distX = this.startX - this.endX;
 	if (distX > 0) {
-		this.left = true;
+		this.swipedLeft = true;
 	}
 	else if (distX < 0) {
-		this.right = true;
+		this.swipedRight = true;
 	}
 	this.returnBubbles();
+};
+
+gameplayState.prototype.boardSwipeBegin = function() {
+	this.startY = game.input.worldY;
+	this.swipingBoard = true;
+};
+
+gameplayState.prototype.boardSwipeEnd = function() {
+	// Save ending coordinates
+	this.endY = game.input.worldY;
+	this.swipingBoard = false;
+
+	// find y distance travelled from the swipe start to end
+	let distY = this.startY - this.endY;
+	if (distY < -100) {
+		this.down = true;
+		this.up = false;
+	}
+	else if (distY > 100) {
+		this.up = true;
+		this.down = false;
+	}
+	this.moveClipboard();
 };
 
 // ##############################
@@ -66,32 +87,35 @@ gameplayState.prototype.initializeUI = function() {
 	this.truthBubble.scale.setTo(0.5, 0.5);
 	this.lieBubble.scale.setTo(0.5, 0.5);
 
-	this.right = false;
-	this.left = false;
+	this.swipedRight = false;
+	this.swipedLeft = false;
 
 	this.speechBubble.inputEnabled = true;
-	this.speechBubble.events.onInputDown.add(this.beginSwipe, this);
-	this.speechBubble.events.onInputUp.add(this.endSwipe, this);
+	this.speechBubble.events.onInputDown.add(this.textSwipeBegin, this);
+	this.speechBubble.events.onInputUp.add(this.textSwipeEnd, this);
 
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
 	this.clipboard.y = 425;
+	this.up = false;
+	this.down = true;
 
 	this.board = this.clipboard.create(this.clipboard.x, this.clipboard.y + 50, "board_png");
 	this.paper = this.clipboard.create(this.clipboard.x + 15, this.clipboard.y + 125, "paper_png");
 	this.metalClip = this.clipboard.create(this.clipboard.x + 185, this.clipboard.y, "metalClipUp_png");
 
 	this.metalClip.inputEnabled = true;
-	//this.metalClip.events.onInputDown.add(this.moveClipboard, this);
-}
+	this.metalClip.events.onInputDown.add(this.boardSwipeBegin, this);
+	this.metalClip.events.onInputDown.add(this.boardSwipeEnd, this);
+};
 
 gameplayState.prototype.moveClipboard = function() {
-	if (this.clipboard.y === -215) {
+	if (this.up === true) {	// (this.clipboard.y === -215)
 		game.add.tween(this.clipboard).to( { y: 425 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipUp_png");
 		game.add.tween(this.speech).to( { y: 295 }, 500, Phaser.Easing.Quadratic.Out, true);
 	}
-	else {
+	else if (this.down === true) {
 		game.add.tween(this.clipboard).to( { y: -215 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipDown_png");
 		game.add.tween(this.speech).to( { y: -345 }, 500, Phaser.Easing.Quadratic.Out, true);
@@ -99,7 +123,7 @@ gameplayState.prototype.moveClipboard = function() {
 };
 
 gameplayState.prototype.moveBubbles = function() {
-	if (this.swiping === true) {
+	if (this.swipingText === true) {
 		if (this.startX > 325) {
 			if (game.input.worldX < 625) {
 				this.truthBubble.x = game.input.worldX;
@@ -111,15 +135,15 @@ gameplayState.prototype.moveBubbles = function() {
 			}
 		}
 	}
-}
+};
 
 gameplayState.prototype.returnBubbles = function () {
-	if (this.right === true) {
+	if (this.swipedRight === true) {
 		let tween = game.add.tween(this.lieBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
-		this.right = false;
+		this.swipedRight = false;
 	}
-	else if (this.left === true) {
+	else if (this.swipedLeft === true) {
 		let tween = game.add.tween(this.truthBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
-		this.left = false;
+		this.swipedLeft = false;
 	}
 };
