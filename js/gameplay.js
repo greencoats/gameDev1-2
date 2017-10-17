@@ -86,8 +86,8 @@ gameplayState.prototype.initializeUI = function() {
 	this.speech.y = 295;
 
 	this.speechBubble = this.speech.create(this.speech.x, this.speech.y + 50, "speechBubble_png");
-	this.truthBubble = this.speech.create(this.speech.x + 625, this.speech.y + 125, "truth_png");
-	this.lieBubble = this.speech.create(this.speech.x + 25, this.speech.y + 125, "lie_png");
+	this.truthBubble = this.speech.create(this.speech.x + 25, this.speech.y + 125, "truth_png");
+	this.lieBubble = this.speech.create(this.speech.x + 625, this.speech.y + 125, "lie_png");
 	this.truthBubble.scale.setTo(0.5, 0.5);
 	this.lieBubble.scale.setTo(0.5, 0.5);
 
@@ -144,12 +144,12 @@ gameplayState.prototype.moveBubbles = function() {
 	if (this.swipingText === true) {
 		if (this.startX > 325) {
 			if (game.input.worldX < 625) {
-				this.truthBubble.x = game.input.worldX;
+				this.lieBubble.x = game.input.worldX;
 			}
 		}
 		else {
 			if (game.input.worldX > 25) {
-				this.lieBubble.x = game.input.worldX;
+				this.truthBubble.x = game.input.worldX;
 			}
 		}
 	}
@@ -157,11 +157,11 @@ gameplayState.prototype.moveBubbles = function() {
 
 gameplayState.prototype.returnBubbles = function () {
 	if (this.swipedRight === true) {
-		let tween = game.add.tween(this.lieBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
+		let tween = game.add.tween(this.truthBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
 		this.swipedRight = false;
 	}
 	else if (this.swipedLeft === true) {
-		let tween = game.add.tween(this.truthBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
+		let tween = game.add.tween(this.lieBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
 		this.swipedLeft = false;
 	}
 };
