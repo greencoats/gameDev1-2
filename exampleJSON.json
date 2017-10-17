@@ -20,7 +20,6 @@
         {
             "question": "How did you know the crime happened?",
             "segments": ["I heard a loud crash, it sounded tremendously loud"],
-            "contradiction": [false],
             "timer": [10],
             "abbr" : "Joe claims to have heard a loud crash"
         }

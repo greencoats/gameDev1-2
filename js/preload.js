@@ -4,6 +4,7 @@ let preloadState = function(){
 
 preloadState.prototype.preload = function() {
 	// Clipboard assets
+	game.load.image("clipboard_png", "assets/clipboard.png");
 	game.load.image("metalClipUp_png", "assets/metalClipUp.png");
 	game.load.image("metalClipDown_png", "assets/metalClipDown.png");
 	game.load.image("paper_png", "assets/paper.png");

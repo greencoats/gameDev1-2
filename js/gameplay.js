@@ -3,7 +3,7 @@ let gameplayState = function(){
 };
 
 gameplayState.prototype.preload = function() {
-
+	// There's nothing here!
 };
 
 gameplayState.prototype.create = function() {
@@ -24,14 +24,17 @@ gameplayState.prototype.create = function() {
 	this.metalClip = this.clipboard.create(this.clipboard.x + 185, this.clipboard.y, "metalClipUp_png");
 
 	this.metalClip.inputEnabled = true;
-	this.metalClip.events.onInputDown.add(this.moveClipboard, this);
+	//this.metalClip.events.onInputDown.add(this.moveClipboard, this);
 
-	// STARS
-	this.statements = game.add.group();
+	this.right = false;
+	this.left = false;
+
+	// beginSwipe function
+	game.input.onDown.add(this.beginSwipe, this);
 };
 
 gameplayState.prototype.update = function() {
-	// Nothing yet
+	gameplayState.prototype.moveBubble();
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -46,3 +49,46 @@ gameplayState.prototype.moveClipboard = function() {
 		game.add.tween(this.speech).to( { y: -345 }, 500, Phaser.Easing.Quadratic.Out, true);
 	}
 }
+
+gameplayState.prototype.moveBubble = function () {
+	//this.textBubble.worldX = this.textBubble.worldX + deltaX;
+	//this.bubble.y += deltaY;
+	if (this.right == true) {
+		this.textBubble.x = 1000;
+	} else if (this.left == true) {
+		this.textBubble.x = -1000;
+	}
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//////http://www.emanueleferonato.com/2014/11/13/html5-swipe-controlled-sokoban-game-made-with-phaser/
+	
+// when the player begins to swipe we only save mouse/finger coordinates, remove the touch/click
+// input listener and add a new listener to be fired when the mouse/finger has been released,
+// then we call endSwipe function
+gameplayState.prototype.beginSwipe = function() {
+	this.startX = game.input.worldX;
+	this.startY = game.input.worldY;
+	game.input.onDown.remove(this.beginSwipe, this);
+	game.input.onUp.add(this.endSwipe, this);
+};
+
+// function to be called when the player releases the mouse/finger
+gameplayState.prototype.endSwipe = function() {
+	// saving mouse/finger coordinates
+	this.endX = game.input.worldX;
+	this.endY = game.input.worldY;
+	// determining x and y distance travelled by mouse/finger from the start
+	// of the swipe until the end
+	var distX = this.startX - this.endX;
+	if (distX > 0) {
+		this.left = true;
+	} else if (distX < 0) {
+		this.right = true;
+	}
+
+	// stop listening for the player to release finger/mouse, let's start listening for the player to click/touch
+	game.input.onDown.add(this.beginSwipe, this);
+	game.input.onUp.remove(this.endSwipe, this);
+
+};

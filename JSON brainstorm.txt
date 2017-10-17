@@ -11,11 +11,11 @@ Array of Dialogue objects:
     - Array of Bools for whether or not segment contains contradiction
         -Add something later for specifically pointing out which segment has a contradiction?
     -Abbreviation of each statement block for the clipboard
-    
+
 CONTENTS OF CLIPBOARD JSON:
 Array of summaries for each case
 
 Questions:
-Do we want the clipboard summary to update as the case goes on?
+Do we want the clipboard summary to update as the case goes on? YES
 Should there be any other data in the clipboard JSON?
 Do we want to create a JSON to hold some kind of beginning dialogue for each case?
