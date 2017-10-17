@@ -1,12 +1,59 @@
+// ##############################
+// #####      GAMEPLAY      #####
+// ##############################
 let gameplayState = function() {
 
 };
+
+// ##############################
+// #####  PRE/CREATE/UPDATE #####
+// ##############################
 
 gameplayState.prototype.preload = function() {
 	// There's nothing here!
 };
 
 gameplayState.prototype.create = function() {
+	this.initializeUI();
+};
+
+gameplayState.prototype.update = function() {
+	this.moveBubbles();
+};
+
+// ##############################
+// #####       SWIPING      #####
+// ##############################
+
+gameplayState.prototype.beginSwipe = function() {
+	// Save initial coordinates
+	this.startX = game.input.worldX;
+	this.startY = game.input.worldY;
+	this.swiping = true;
+};
+
+gameplayState.prototype.endSwipe = function() {
+	// Save ending coordinates
+	this.endX = game.input.worldX;
+	this.endY = game.input.worldY;
+	this.swiping = false;
+
+	// find x distance travelled from the swipe start to end
+	let distX = this.startX - this.endX;
+	if (distX > 0) {
+		this.left = true;
+	}
+	else if (distX < 0) {
+		this.right = true;
+	}
+	this.returnBubbles();
+};
+
+// ##############################
+// #####       UI CODE      #####
+// ##############################
+
+gameplayState.prototype.initializeUI = function() {
 	this.suspect = game.add.sprite(0, 0, "poiPortrait_png");
 
 	this.speech = game.add.group();
@@ -36,22 +83,7 @@ gameplayState.prototype.create = function() {
 
 	this.metalClip.inputEnabled = true;
 	//this.metalClip.events.onInputDown.add(this.moveClipboard, this);
-};
-
-gameplayState.prototype.update = function() {
-	if (this.swiping === true) {
-		if (this.startX > 325) {
-			if (game.input.worldX < 625) {
-				this.truthBubble.x = game.input.worldX;
-			}
-		}
-		else {
-			if (game.input.worldX > 25) {
-				this.lieBubble.x = game.input.worldX;
-			}
-		}
-	}
-};
+}
 
 gameplayState.prototype.moveClipboard = function() {
 	if (this.clipboard.y === -215) {
@@ -66,46 +98,28 @@ gameplayState.prototype.moveClipboard = function() {
 	}
 };
 
+gameplayState.prototype.moveBubbles = function() {
+	if (this.swiping === true) {
+		if (this.startX > 325) {
+			if (game.input.worldX < 625) {
+				this.truthBubble.x = game.input.worldX;
+			}
+		}
+		else {
+			if (game.input.worldX > 25) {
+				this.lieBubble.x = game.input.worldX;
+			}
+		}
+	}
+}
+
 gameplayState.prototype.returnBubbles = function () {
 	if (this.right === true) {
 		let tween = game.add.tween(this.lieBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
-		//tween.yoyo(true, 1);
 		this.right = false;
 	}
 	else if (this.left === true) {
 		let tween = game.add.tween(this.truthBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
-		//tween.yoyo(true, 1);
 		this.left = false;
 	}
-};
-
-//////////////////////////////////////////////////////////////////////////////////////////
-//////http://www.emanueleferonato.com/2014/11/13/html5-swipe-controlled-sokoban-game-made-with-phaser/
-	
-// when the player begins to swipe we only save mouse/finger coordinates, remove the touch/click
-// input listener and add a new listener to be fired when the mouse/finger has been released,
-// then we call endSwipe function
-gameplayState.prototype.beginSwipe = function() {
-	this.startX = game.input.worldX;
-	this.startY = game.input.worldY;
-	this.swiping = true;
-};
-
-// function to be called when the player releases the mouse/finger
-gameplayState.prototype.endSwipe = function() {
-	// saving mouse/finger coordinates
-	this.endX = game.input.worldX;
-	this.endY = game.input.worldY;
-	this.swiping = false;
-
-	// determining x and y distance travelled by mouse/finger from the start
-	// of the swipe until the end
-	let distX = this.startX - this.endX;
-	if (distX > 0) {
-		this.left = true;
-	}
-	else if (distX < 0) {
-		this.right = true;
-	}
-	this.returnBubbles();
 };
