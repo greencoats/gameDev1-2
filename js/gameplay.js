@@ -14,6 +14,11 @@ gameplayState.prototype.create = function() {
 	this.speech.y = 295;
 
 	this.speechBubble = this.speech.create(this.speech.x, this.speech.y + 50, "speechBubble_png");
+	this.right = false;
+	this.left = false;
+
+	this.speechBubble.inputEnabled = true;
+	this.speechBubble.events.onInputDown.add(this.beginSwipe, this);
 
 	this.clipboard = game.add.group();
 	this.clipboard.x = 0;
@@ -25,16 +30,10 @@ gameplayState.prototype.create = function() {
 
 	this.metalClip.inputEnabled = true;
 	//this.metalClip.events.onInputDown.add(this.moveClipboard, this);
-
-	this.right = false;
-	this.left = false;
-
-	// beginSwipe function
-	game.input.onDown.add(this.beginSwipe, this);
 };
 
 gameplayState.prototype.update = function() {
-	gameplayState.prototype.moveBubble();
+	//gameplayState.prototype.moveBubble();
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -54,9 +53,15 @@ gameplayState.prototype.moveBubble = function () {
 	//this.textBubble.worldX = this.textBubble.worldX + deltaX;
 	//this.bubble.y += deltaY;
 	if (this.right == true) {
-		this.textBubble.x = 1000;
+		let tween = game.add.tween(this.speechBubble).to( { x: 200 }, 100, Phaser.Easing.Quadratic.Out, true);
+		tween.yoyo(true, 1);
+		this.right = false;
+		//this.speechBubble.x = 1000;
 	} else if (this.left == true) {
-		this.textBubble.x = -1000;
+		let tween = game.add.tween(this.speechBubble).to( { x: -200 }, 100, Phaser.Easing.Quadratic.Out, true);
+		tween.yoyo(true, 1);
+		this.left = false;
+		//this.speechBubble.x = -1000;
 	}
 };
 
@@ -86,6 +91,7 @@ gameplayState.prototype.endSwipe = function() {
 	} else if (distX < 0) {
 		this.right = true;
 	}
+	this.moveBubble();
 
 	// stop listening for the player to release finger/mouse, let's start listening for the player to click/touch
 	game.input.onDown.add(this.beginSwipe, this);
