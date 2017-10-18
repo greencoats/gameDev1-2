@@ -78,11 +78,11 @@ gameplayState.prototype.create = function() {
 
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
-	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#b2109f', align: 'center'},this.clipboard);
+	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
 	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
-	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"Witness Statements:\n",{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
+	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"WITNESS STATEMENTS (Not guaranteed true):\n",{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
 
 	// STARS
 	this.statements = game.add.group();
@@ -283,7 +283,6 @@ gameplayState.prototype.placeBubbles = function () {
 // ##############################
 
 gameplayState.prototype.Conclude = function(){
-	console.log(this.currChar);
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
@@ -301,23 +300,20 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.isQuestion = false;
 	}
 	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
-		this.updateClipboard();
-		this.updateSummary();
 		this.currSegment++;
+		//this.updateSummary();
 	}
 	else if(this.isOutro && this.currSegment < this.charArr.characters[this.currChar].outro[this.currIntro].segments.length-1){
-		this.updateClipboard();
 		this.currSegment++;
+		//this.updateSummary();
 	}
 	else if (this.isIntro && this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
-		this.updateClipboard();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
+		//this.updateSummary();
 	}
 	else if (this.isOutro && this.currIntro < this.charArr.characters[this.currChar].outro.length-1){
-		this.updateClipboard();
-		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
@@ -326,8 +322,6 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.isTransition = true;
 	}
 	else{
-		this.updateClipboard();
-		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
 			this.suspect.loadTexture("char" + this.currentLevel + "-" + this.currChar);
@@ -355,31 +349,28 @@ gameplayState.prototype.UpdateIntro = function(){
 }
 
 gameplayState.prototype.UpdateText = function(){
-	console.log("UT");
 	if(this.isQuestion == true){ //Display question
 		this.isQuestion = false;
 		this.swipeSwitch();
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
-		this.updateClipboard();
-		this.updateSummary();
 		this.currSegment++;
+		//this.updateSummary();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
-		this.updateClipboard();
-		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
+		//this.updateSummary();
 		this.swipeSwitch();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
 		this.swipeSwitch();
+		//this.updateSummary();
 	}
 	else{
-		this.updateClipboard();
-		this.updateSummary();
+		//this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues = 0;
 		this.isQuestion = true;
@@ -394,10 +385,10 @@ gameplayState.prototype.UpdateText = function(){
 };
 
 gameplayState.prototype.PrintText = function(){
-	console.log("INTRO MODE " + this.isIntro);
-	console.log("TRANSITION MODE " + this.isTransition);
-	console.log("QUESTION MODE " + this.questionMode);
-	console.log("OUTRO MODE " + this.isOutro + "\n");
+	// console.log("INTRO MODE " + this.isIntro);
+	// console.log("TRANSITION MODE " + this.isTransition);
+	// console.log("QUESTION MODE " + this.questionMode);
+	// console.log("OUTRO MODE " + this.isOutro + "\n");
 	if(this.isTransition){
 		//this.dia.style.font = 'Italic 28pt Arial';
 		this.dia.addColor("#27d110",0);
@@ -423,6 +414,7 @@ gameplayState.prototype.PrintText = function(){
 			else{
 				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].segments[this.currSegment];
+				this.updateSummary();
 			}
 		}
 		else if(this.isOutro){
@@ -433,6 +425,7 @@ gameplayState.prototype.PrintText = function(){
 			else{
 				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].segments[this.currSegment];
+				this.updateSummary();
 			}
 		}
 	}
@@ -444,6 +437,8 @@ gameplayState.prototype.PrintText = function(){
 		}
 		else{
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments[this.currSegment];
+			this.updateSummary();
+			this.updateClipboard();
 		}
 	}
 };
@@ -474,16 +469,37 @@ gameplayState.prototype.left = function(){
 };
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
-	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
-		this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
+	if(this.questionMode) {	
+		if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
+			this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
+		}
 	}
 }
 
 gameplayState.prototype.updateSummary = function() { //Function will update the clipboard synopsis if needed
-	console.log("RUNNING SUMMARY CHECK");
-	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] == true) {
-		console.log("UPDATING CLIPBOARD");
-		this.synopsis.text += this.clipboardData.summaries[this.currSummary];
-		this.currSummary++;
+	if(this.questionMode) {
+		if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] != null && this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] === true) {
+			console.log("UPDATING CLIPBOARD 0");
+			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
+			this.currSummary++;
+		}
+	}
+	else if(this.isIntro) {
+		if(this.charArr.characters[this.currChar].intro[this.currIntro].summary[this.currSegment] === true) {
+			console.log("UPDATING CLIPBOARD 1");
+			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
+			this.currSummary++;
+		}
+	}
+	else if(this.isOutro) {
+		if(this.charArr.characters[this.currChar].outro[this.currIntro].summary[this.currSegment] === true) {
+			console.log(this.currChar);
+			console.log(this.charArr.characters[this.currChar].outro[this.currIntro].summary[this.currSegment]);
+			console.log(this.currSegment);
+			console.log("UPDATING CLIPBOARD 2");
+			console.log(this.currDialogues);
+			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
+			this.currSummary++;
+		}
 	}
 }
