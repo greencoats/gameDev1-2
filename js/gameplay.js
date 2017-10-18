@@ -82,7 +82,7 @@ gameplayState.prototype.create = function() {
 	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
-	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"Witness Statements:\n",{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
+	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"WITNESS STATEMENTS (Not guaranteed true):\n",{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
 
 	// STARS
 	this.statements = game.add.group();
