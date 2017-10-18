@@ -26,9 +26,6 @@ scoreState.prototype.create = function () {
 
   if(this.score === this.maxScore && this.falsePos < this.passingScore){
     this.condition.text = "I've got it!";
-    if(this.level === 3){
-      game.state.start("End");
-    }
     game.state.states['Gameplay'].currentLevel = this.level + 1;
   }
   else{
@@ -39,6 +36,9 @@ scoreState.prototype.create = function () {
 }
 
 scoreState.prototype.Press = function(){
+  if(this.level === 3){
+    game.state.start("End");
+  }
   this.changeState = true;
 }
 
