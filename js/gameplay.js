@@ -24,7 +24,7 @@ gameplayState.prototype.create = function() {
 	this.currSegment = 0;
 	this.currIntro = 0;
 	this.currChar = 0;
-	this.maxChar = 3;
+	this.maxChar = 0;
 	this.isQuestion = true;
 
 	this.currSummary = 0;
@@ -40,7 +40,8 @@ gameplayState.prototype.create = function() {
 	this.charArr = game.cache.getJSON('character');
 	this.clipboardData = game.cache.getJSON('clipboard');
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(20,300,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '32pt', fill:"#ffffff"});
+	this.dia = game.add.text(game.world.centerX,750,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"#ffffff"});
+	this.dia.anchor.setTo(.5);
 
 	//CONTROLS
 	this.cursors = game.input.keyboard.createCursorKeys();
@@ -255,6 +256,7 @@ gameplayState.prototype.placeBubbles = function () {
 // ##############################
 
 gameplayState.prototype.Conclude = function(){
+	console.log("here");
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
@@ -267,13 +269,25 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.isQuestion = false;
 		this.updateCounter();
 	}
-	else if(this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
+	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
-	else if (this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
+	else if(this.isOutro && this.currSegment < this.charArr.characters[this.currChar].outro[this.currIntro].segments.length-1){
+		this.updateClipboard();
+		this.currSegment++;
+		this.updateCounter();
+	}
+	else if (this.isIntro && this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
+		this.updateClipboard();
+		this.currSegment = 0;
+		this.currIntro++;
+		this.isQuestion = true;
+		this.updateCounter();
+	}
+	else if (this.isOutro && this.currIntro < this.charArr.characters[this.currChar].outro.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment = 0;
@@ -291,6 +305,7 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.currChar++;
 			this.isIntro = true;
 			this.isOutro = false;
+			console.log(this.currChar + " : " + this.maxChar);
 			if(this.currChar >= this.maxChar){
 				this.Conclude();
 				return;
@@ -352,14 +367,15 @@ gameplayState.prototype.UpdateText = function(){
 };
 
 gameplayState.prototype.PrintText = function(){
-	console.log(this.isIntro);
 	if(this.isTransition){
+		//this.dia.style.font = 'Italic 28pt Arial';
 		if(this.isIntro){
 			this.dia.text = this.charArr.characters[this.currChar].introTransition;
 		}
 		else if(this.isOutro){
 			this.dia.text = this.charArr.characters[this.currChar].questionsTransition;
 		}
+		//this.dia.style.font = 'Bold 28pt Arial';
 	}
 	else if(this.textMode){
 		if(this.isIntro){
