@@ -345,8 +345,6 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.isTransition = false;
 	}
 	this.PrintText();
-	//this.updateSummary();
-	this.updateClipboard();
 	return;
 }
 
@@ -356,12 +354,10 @@ gameplayState.prototype.UpdateText = function(){
 		this.swipeSwitch();
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
-		this.updateClipboard();
 		this.currSegment++;
 		//this.updateSummary();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
-		this.updateClipboard();
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
@@ -374,7 +370,6 @@ gameplayState.prototype.UpdateText = function(){
 		//this.updateSummary();
 	}
 	else{
-		//this.updateClipboard();
 		//this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues = 0;
@@ -443,6 +438,7 @@ gameplayState.prototype.PrintText = function(){
 		else{
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments[this.currSegment];
 			this.updateSummary();
+			this.updateClipboard();
 		}
 	}
 };
