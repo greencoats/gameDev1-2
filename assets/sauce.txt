@@ -9,3 +9,11 @@ https://pixabay.com/en/photography-portrait-man-male-2036938/
 
 ----- Code -----
 http://www.emanueleferonato.com/2014/11/13/html5-swipe-controlled-sokoban-game-made-with-phaser/
+
+-bartender
+-custodian
+-customer/bar patron
+-NYPD officer
+-Female witness
+-Old woman witness
+-Gang leader
