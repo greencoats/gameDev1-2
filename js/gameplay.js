@@ -9,8 +9,8 @@ let gameplayState = function(){
 // #####  PRE/CREATE/UPDATE #####
 // ##############################
 gameplayState.prototype.preload = function() {
-	game.load.json('character','exampleJSON.json');
-	game.load.json('clipboard','clipboardJSON.json');
+	game.load.json('character','characters_1.json');
+	game.load.json('clipboard','clipboard_1.json');
 };
 
 gameplayState.prototype.create = function() {
@@ -269,11 +269,13 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
 	else if (this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
@@ -284,6 +286,7 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else{
 		this.updateClipboard();
+		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
 			this.isIntro = true;
@@ -316,11 +319,13 @@ gameplayState.prototype.UpdateText = function(){
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
@@ -331,6 +336,7 @@ gameplayState.prototype.UpdateText = function(){
 	}
 	else{
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues = 0;
 		this.isQuestion = true;
@@ -416,11 +422,12 @@ gameplayState.prototype.updateClipboard = function() { //function adds abbreviat
 	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
 		this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
 	}
-	this.updateSummary();
 }
 
 gameplayState.prototype.updateSummary = function() { //Function will update the clipboard synopsis if needed
+	console.log("RUNNING SUMMARY CHECK");
 	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] == true) {
+		console.log("UPDATING CLIPBOARD");
 		this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 		this.currSummary++;
 	}
