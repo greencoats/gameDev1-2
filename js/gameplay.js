@@ -26,6 +26,8 @@ gameplayState.prototype.create = function() {
 	this.maxChar = 3;
 	this.isQuestion = true;
 
+	this.currSummary = 0;
+
 	//booleans to create modes of gameplayState
 	this.textMode = true;
 	this.questionMode = false;
@@ -55,8 +57,9 @@ gameplayState.prototype.create = function() {
 	timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
 
 	//Add initial synopsis text to clipboard
-	this.synopText = this.clipboardData.summaries[0][0];
+	this.synopText = this.clipboardData.summaries[0];
 	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
+	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
 	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"",{font:'24px Arial', fill: '#ff0202', align: 'left'},this.clipboard);
@@ -325,14 +328,6 @@ gameplayState.prototype.UpdateText = function(){
 		this.updateCounter();
 	}
 
-	//Hardcoded segment for determining when to update clipboard synopsis
-	if(this.currDialogues==1 && this.currSegment==1) {
-		this.synopsis.text += this.clipboardData.summaries[0][1];
-	}
-	else if(this.currDialogues==2 && this.currSegment==1) {
-		this.synopsis.text += this.clipboardData.summaries[0][2];
-	}
-
 	this.PrintText();
 
 	return;
@@ -407,5 +402,13 @@ gameplayState.prototype.updateCounter = function() {
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
 	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
 		this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
+	}
+	this.updateSummary();
+}
+
+gameplayState.prototype.updateSummary = function() { //Function will update the clipboard synopsis if needed
+	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] == true) {
+		this.synopsis.text += this.clipboardData.summaries[this.currSummary];
+		this.currSummary++;
 	}
 }
