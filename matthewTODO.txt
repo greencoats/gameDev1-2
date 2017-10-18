@@ -9,9 +9,8 @@ Tasks DONE:
 -Sync up abbreviated statements with real statements on clipboard
 -Add intro and outro as well as transition data to JSON
 -Group dialogue to text bubble
+-Load conclusion and tutorial into JSON
 
 TODO by Saturday 10/14:
--Load conclusion and tutorial into JSON
--Clear clipboad text each new chapter
 -Fix text color of clipboard info
 -Debug text adding to clipboard (both synopsis and abbreviated statements)
