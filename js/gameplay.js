@@ -54,11 +54,11 @@ gameplayState.prototype.create = function() {
 
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
-	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
+	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#b2109f', align: 'center'},this.clipboard);
 	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
-	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"",{font:'24px Arial', fill: '#ff0202', align: 'left'},this.clipboard);
+	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"Witness Statements:\n",{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
 
 	// STARS
 	this.statements = game.add.group();

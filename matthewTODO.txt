@@ -10,7 +10,7 @@ Tasks DONE:
 -Add intro and outro as well as transition data to JSON
 -Group dialogue to text bubble
 -Load conclusion and tutorial into JSON
+-Fix text color of clipboard info
 
 TODO by Saturday 10/14:
--Fix text color of clipboard info
 -Debug text adding to clipboard (both synopsis and abbreviated statements)
