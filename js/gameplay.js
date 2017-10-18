@@ -268,7 +268,6 @@ gameplayState.prototype.placeBubbles = function () {
 // ##############################
 
 gameplayState.prototype.Conclude = function(){
-	console.log(this.currChar);
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
@@ -286,34 +285,28 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.isQuestion = false;
 	}
 	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
-		this.updateSummary();
 		this.currSegment++;
-		this.updateClipboard();
+		//this.updateSummary();
 	}
 	else if(this.isOutro && this.currSegment < this.charArr.characters[this.currChar].outro[this.currIntro].segments.length-1){
-		this.updateSummary();
 		this.currSegment++;
-		this.updateClipboard();
+		//this.updateSummary();
 	}
 	else if (this.isIntro && this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
-		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
-		this.updateClipboard();
+		//this.updateSummary();
 	}
 	else if (this.isOutro && this.currIntro < this.charArr.characters[this.currChar].outro.length-1){
-		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
-		this.updateClipboard();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
 	}
 	else{
-		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
 			this.suspect.loadTexture("char" + this.currentLevel + "-" + this.currChar);
@@ -331,38 +324,39 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.isIntro = false;
 			this.isOutro = true;
 		}
-		this.updateClipboard();
 		this.currSegment = 0;
 		this.currIntro = 0;
 		this.isQuestion = true;
 		this.isTransition = false;
 	}
 	this.PrintText();
+	//this.updateSummary();
+	this.updateClipboard();
 	return;
 }
 
 gameplayState.prototype.UpdateText = function(){
-	console.log("UT");
 	if(this.isQuestion == true){ //Display question
 		this.isQuestion = false;
 		this.swipeSwitch();
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
-		this.updateSummary();
 		this.currSegment++;
+		//this.updateSummary();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
 		this.updateClipboard();
-		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
+		//this.updateSummary();
 		this.swipeSwitch();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
 		this.swipeSwitch();
+		//this.updateSummary();
 	}
 	else{
 		//this.updateClipboard();
@@ -381,10 +375,10 @@ gameplayState.prototype.UpdateText = function(){
 };
 
 gameplayState.prototype.PrintText = function(){
-	console.log("INTRO MODE " + this.isIntro);
-	console.log("TRANSITION MODE " + this.isTransition);
-	console.log("QUESTION MODE " + this.questionMode);
-	console.log("OUTRO MODE " + this.isOutro + "\n");
+	// console.log("INTRO MODE " + this.isIntro);
+	// console.log("TRANSITION MODE " + this.isTransition);
+	// console.log("QUESTION MODE " + this.questionMode);
+	// console.log("OUTRO MODE " + this.isOutro + "\n");
 	if(this.isTransition){
 		//this.dia.style.font = 'Italic 28pt Arial';
 		this.dia.addColor("#27d110",0);
@@ -410,6 +404,7 @@ gameplayState.prototype.PrintText = function(){
 			else{
 				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].segments[this.currSegment];
+				this.updateSummary();
 			}
 		}
 		else if(this.isOutro){
@@ -420,6 +415,7 @@ gameplayState.prototype.PrintText = function(){
 			else{
 				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].segments[this.currSegment];
+				this.updateSummary();
 			}
 		}
 	}
@@ -431,6 +427,7 @@ gameplayState.prototype.PrintText = function(){
 		}
 		else{
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments[this.currSegment];
+			this.updateSummary();
 		}
 	}
 };
@@ -470,22 +467,26 @@ gameplayState.prototype.updateClipboard = function() { //function adds abbreviat
 
 gameplayState.prototype.updateSummary = function() { //Function will update the clipboard synopsis if needed
 	if(this.questionMode) {
-		if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] != null && this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] == true) {
-			console.log("UPDATING CLIPBOARD");
+		if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] != null && this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] === true) {
+			console.log("UPDATING CLIPBOARD 0");
 			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 			this.currSummary++;
 		}
 	}
 	else if(this.isIntro) {
-		if(this.charArr.characters[this.currChar].intro[this.currDialogues].summary[this.currSegment] == true) {
-			console.log("UPDATING CLIPBOARD");
+		if(this.charArr.characters[this.currChar].intro[this.currIntro].summary[this.currSegment] === true) {
+			console.log("UPDATING CLIPBOARD 1");
 			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 			this.currSummary++;
 		}
 	}
-	else if(!this.questionMode && this.isOutro) {
-		if(this.charArr.characters[this.currChar].outro[this.currDialogues].summary[this.currSegment] == true) {
-			console.log("UPDATING CLIPBOARD");
+	else if(this.isOutro) {
+		if(this.charArr.characters[this.currChar].outro[this.currIntro].summary[this.currSegment] === true) {
+			console.log(this.currChar);
+			console.log(this.charArr.characters[this.currChar].outro[this.currIntro].summary[this.currSegment]);
+			console.log(this.currSegment);
+			console.log("UPDATING CLIPBOARD 2");
+			console.log(this.currDialogues);
 			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 			this.currSummary++;
 		}
