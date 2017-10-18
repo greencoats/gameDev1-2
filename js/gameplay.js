@@ -2,7 +2,9 @@
 // #####      GAMEPLAY      #####
 // ##############################
 let gameplayState = function(){
-	this.currentLevel = 0;
+	this.currentLevel = 1;
+	this.musicPlaying = false;
+	this.levelMusic = 1;
 };
 
 // ##############################
@@ -17,9 +19,16 @@ gameplayState.prototype.preload = function() {
 	game.load.json('clipboard1','clipboard_1.json');
 	game.load.json('clipboard2','clipboard_2.json');
 	game.load.json('clipboard3','clipboard_3.json');
+
+	//Load music
+	track1 = new Phaser.Sound(game, 'track_1', 1, true);
+	track2 = new Phaser.Sound(game, 'track_2', 1, true);
+	track3 = new Phaser.Sound(game, 'track_3', 1, true);
 };
 
 gameplayState.prototype.create = function() {
+	//Play music
+	track1.play();
 
 	//JSON Data held in array
 	this.charArr = game.cache.getJSON('character' + this.currentLevel);

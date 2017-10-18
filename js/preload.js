@@ -28,6 +28,11 @@ preloadState.prototype.preload = function() {
 	game.load.image("speechBubble_png", "assets/speechBubble.png");
 	game.load.image("truth_png", "assets/truth.png");
 	game.load.image("lie_png", "assets/lie.png");
+
+	//Music Assets
+	game.load.audio("track_1", "assets/music/track1.wav");
+	game.load.audio("track_2", "assets/music/track2.wav");
+	game.load.audio("track_3", "assets/music/track3.wav");
 }
 
 preloadState.prototype.create = function() {
