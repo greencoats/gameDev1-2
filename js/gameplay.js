@@ -314,7 +314,6 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
-			this.
 			this.isIntro = true;
 			this.isOutro = false;
 			this.isIntroTrans = true;
