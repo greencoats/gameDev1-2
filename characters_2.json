@@ -1,0 +1,156 @@
+{
+    "contradictions" : 2,
+    "characters" : [
+        {
+            "introStart" : "I didn't know there was an officer with knowledge of the killer. I'll go ask him some questions",
+            
+            "name": "James O'Donell",
+            "picture": "/assets/images/officer.png",
+
+            "intro": [
+                {
+                    "question": "Excuse me, sir. Are you a certain James O’Donell?",
+                    "segments": ["The one and only. What can I do for you on this fine day?"],
+                    "summary": [false]
+                },
+                {
+                    "question": "An acquaintance mentioned your name. I’d like to know about the murders happening around the gay bars.",
+                    "segments": ["Cutting to the chase, eh?  But why should I tell you what I know?"],
+                    "summary": [false]
+                },
+                {
+                    "question": "Randy Jurgensen, NYPD. I’m sure you’ll help me out?",
+                    "segments": ["Why didn't you say so earlier?", "I’ll tell you what I know. It’s the least I can do."],
+                    "summary": [false,false]
+                }
+            ],
+
+            "introTransition" : "Time to take some notes.",
+
+            "dialogues": [
+                {
+                    "question": "Can you tell me about the murderer?",
+                    "segments": ["Reports I’ve seen detail the suspect as a mustached man."],
+                    "contradiction": [false],
+                    "timer": [3333],
+                    "abbr": ["","Killer has a mustache\n"],
+                    "summary": [false]
+                },
+                {
+                    "question": "Any other defining features?",
+                    "segments": ["Not that I can think of. He’s just an average Joe gone astray."],
+                    "contradiction": [false],
+                    "timer": [8888],
+                    "abbr" : [""],
+                    "summary": [false]
+                },
+                {
+                    "question": "What do you mean?",
+                    "segments": ["The reports we’ve gotten imply the suspect dresses as a gay man, luring his targets.","He beats them on their home turf."],
+                    "contradiction": [false,false],
+                    "timer": [8888,8888],
+                    "abbr" : ["Killer poses as a gay man",""],
+                    "summary": [false,false]
+                },
+                {
+                    "question": "You’re saying the suspect’s targets frequent the gay bars?",
+                    "segments": ["That’s correct. A lot of our eyewitnesses live in Westertown, which is close to a few gay bars."],
+                    "contradiction": [false],
+                    "timer": [8888],
+                    "abbr" : [""],
+                    "summary": [true]
+                }
+            ],
+
+            "questionsTransition" : "This was productive. Time to move on.",
+
+            "outro" : [
+                {
+                    "question": "Thank you for your time.",
+                    "segments": ["Glad to help. Oh, and one last thing. There have been false reports floating out there.."],
+                    "summary": [false]
+                },
+                {
+                    "question": "What about them?",
+                    "segments": ["Specifically about the suspect’s attire.","Some folks claim he’s dressed in tattered wear.", "I know someone who saw otherwise."],
+                    "summary": [false,false,true]
+                },
+                {
+                    "question": "Noted. Who is this person?",
+                    "segments": ["She lives in Westertown. Here’s the address and name."],
+                    "summary": [true]
+                }
+            ],
+
+            "outroTransition" : "Looks like her name is Martha. I should go look for her."
+        },
+        {
+            "name": "Witness",
+            "picture": "/assets/images/witness.png",
+
+            "introStart": "Maybe she knows where Martha lives",
+
+            "intro": [
+                {
+                    "question": "Pardon me. Do you know someone named Martha?",
+                    "segments": ["Yes, she lives down the street. What do you need from her?"],
+                    "summary": [false]
+                },
+                {
+                    "question": "I heard she knows about the murders around these parts?",
+                    "segments": ["Oh, yes. She saw one of the murders right before her eyes. As did I."],
+                    "summary": [false]
+                }
+            ],
+
+            "introTransition" : "It’s worth a try here. Let’s see if I can learn something new.",
+
+            "dialogues": [
+                {
+                    "question": "Oh. Do you know what the murderer looked like?",
+                    "segments": ["Uh, the guy was wearing a tattered brown shirt."],
+                    "contradiction": [true],
+                    "timer": [3333],
+                    "abbr": ["Witness claims murderer wore a tattered brown shirt\n"],
+                    "summary": [false]
+                },
+                {
+                    "question": "Hmm, okay. How about any defining features. Say, a mustache?",
+                    "segments": ["Defining features…um, he did have his curly mustache."],
+                    "contradiction": [false],
+                    "timer": [6666],
+                    "abbr":  ["Witness claims suspect had a mustache\n"],
+                    "summary": [false]
+                },
+                {
+                    "question": "Do you know of the victims? Anything at all?",
+                    "segments": ["Yes… a good friend of mine fell victim to the savage killer. He… his wounds were deep."],
+                    "contradiction": [false],
+                    "timer": [8888],
+                    "abbr" : [""],
+                    "summary": [false]
+                },
+                {
+                    "question": "What kind of wounds if I may ask?",
+                    "segments": ["I-I’m not entirely sure. Guns, perhaps?"],
+                    "contradiction": [true],
+                    "timer": [8888],
+                    "abbr" : ["Victims were allegedly suffered gunshot wounds\n"],
+                    "summary": [false]
+                }
+            ],
+
+            "questionsTransition" : "Hmm. It might be wise to make sure this information is accurate.",
+
+            "outro" : [
+                {
+                    "question": "Sorry for your loss, and stay strong. I appreciate the time.",
+                    "segments": ["Thank you. If it helps get that beast behind bars, I will gladly lend my time.."],
+                    "summary": [false]
+                }
+            ],
+
+            "outroTransition" : "Time to go find Martha."
+        }
+    ]
+}

@@ -23,7 +23,7 @@ gameplayState.prototype.create = function() {
 	this.currSegment = 0;
 	this.currIntro = 0;
 	this.currChar = 0;
-	this.maxChar = 3;
+	this.maxChar = 0;
 	this.isQuestion = true;
 
 	this.currSummary = 0;
@@ -39,19 +39,11 @@ gameplayState.prototype.create = function() {
 	this.charArr = game.cache.getJSON('character');
 	this.clipboardData = game.cache.getJSON('clipboard');
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(20,300,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '32pt', fill:"#ffffff"});
+	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y-175,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '24pt', wordWrap: true,wordWrapWidth: 420, fill:"#050505"},this.clipboard);
 
 	//SCORE
 	this.maxCont = 2;
 	this.currCont = 0;
-
-	//Create the timer
-	timer = game.time.create(false);
-	this.timeToCopmlete = this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
-	console.log("Time to complete is " + this.timeToCopmlete);
-
-	//After specified number of seconds, updateText is called
-	timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
 
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
@@ -79,7 +71,6 @@ gameplayState.prototype.update = function() {
 	    	this.right();
 	    	this.swipedRight = false;
 	  	}
-		game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
 	}
 };
 
@@ -260,6 +251,7 @@ gameplayState.prototype.placeBubbles = function () {
 // ##############################
 
 gameplayState.prototype.Conclude = function(){
+	console.log("here");
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
@@ -270,21 +262,28 @@ gameplayState.prototype.Conclude = function(){
 gameplayState.prototype.UpdateIntro = function(){
 	if(this.isQuestion){
 		this.isQuestion = false;
-		this.updateCounter();
 	}
-	else if(this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
+	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment++;
-		this.updateCounter();
 	}
-	else if (this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
+	else if(this.isOutro && this.currSegment < this.charArr.characters[this.currChar].outro[this.currIntro].segments.length-1){
+		this.updateClipboard();
+		this.currSegment++;
+	}
+	else if (this.isIntro && this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
+		this.updateClipboard();
+		this.currSegment = 0;
+		this.currIntro++;
+		this.isQuestion = true;
+	}
+	else if (this.isOutro && this.currIntro < this.charArr.characters[this.currChar].outro.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
-		this.updateCounter();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
@@ -296,6 +295,7 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.currChar++;
 			this.isIntro = true;
 			this.isOutro = false;
+			console.log(this.currChar + " : " + this.maxChar);
 			if(this.currChar >= this.maxChar){
 				this.Conclude();
 				return;
@@ -312,7 +312,6 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.currIntro = 0;
 		this.isQuestion = true;
 		this.isTransition = false;
-		this.updateCounter();
 	}
 	this.PrintText();
 	return;
@@ -321,13 +320,11 @@ gameplayState.prototype.UpdateIntro = function(){
 gameplayState.prototype.UpdateText = function(){
 	if(this.isQuestion === true){ //Display question
 		this.isQuestion = false;
-		this.updateCounter();
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment++;
-		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
 		this.updateClipboard();
@@ -335,7 +332,6 @@ gameplayState.prototype.UpdateText = function(){
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
-		this.updateCounter();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
@@ -349,7 +345,6 @@ gameplayState.prototype.UpdateText = function(){
 		this.isTransition = false;
 		this.questionMode = false;
 		this.textMode = true;
-		this.updateCounter();
 	}
 
 	//Hardcoded segment for determining when to update clipboard synopsis
@@ -366,14 +361,15 @@ gameplayState.prototype.UpdateText = function(){
 };
 
 gameplayState.prototype.PrintText = function(){
-	console.log(this.isIntro);
 	if(this.isTransition){
+		//this.dia.style.font = 'Italic 28pt Arial';
 		if(this.isIntro){
 			this.dia.text = this.charArr.characters[this.currChar].introTransition;
 		}
 		else if(this.isOutro){
 			this.dia.text = this.charArr.characters[this.currChar].questionsTransition;
 		}
+		//this.dia.style.font = 'Bold 28pt Arial';
 	}
 	else if(this.textMode){
 		if(this.isIntro){
@@ -412,23 +408,6 @@ gameplayState.prototype.left = function(){
 		this.currCont++;
 	}
 	this.UpdateText();
-};
-
-gameplayState.prototype.updateCounter = function() {
-	//Stop the timer
-	timer.stop();
-
-	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment] != null) {
-		//Switch timer variable to the next value it needs to be
-		if(!this.isQuestion) {
-			this.timeToCopmlete = this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
-			console.log("Time to complete is " + this.timeToCopmlete);
-			timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
-
-			//start the timer again
-			timer.start();
-		}
-	}
 };
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
