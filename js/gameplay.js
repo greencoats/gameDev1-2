@@ -16,6 +16,7 @@ gameplayState.prototype.preload = function() {
 gameplayState.prototype.create = function() {
 	// UI
 	this.initializeUI();
+	this.newBubbles();
 
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
@@ -119,7 +120,7 @@ gameplayState.prototype.textSwipeEnd = function() {
 	else if (distX < 0) {
 		this.swipedRight = true;
 	}
-	this.returnBubbles();
+	this.placeBubbles();
 };
 
 gameplayState.prototype.boardSwipeBegin = function() {
@@ -160,11 +161,6 @@ gameplayState.prototype.initializeUI = function() {
 	this.speech.y = 295;
 
 	this.speechBubble = this.speech.create(this.speech.x, this.speech.y + 50, "speechBubble_png");
-	this.truthBubble = this.speech.create(this.speech.x + 25, this.speech.y + 125, "truth_png");
-	this.lieBubble = this.speech.create(this.speech.x + 625, this.speech.y + 125, "lie_png");
-	this.truthBubble.scale.setTo(0.5, 0.5);
-	this.lieBubble.scale.setTo(0.5, 0.5);
-
 	this.swipedRight = false;
 	this.swipedLeft = false;
 
@@ -187,6 +183,18 @@ gameplayState.prototype.initializeUI = function() {
 	this.boardStart = 425;
 	this.metalClip.events.onInputDown.add(this.boardSwipeBegin, this);
 	this.metalClip.events.onInputUp.add(this.boardSwipeEnd, this);
+};
+
+gameplayState.prototype.newBubbles = function() {
+	this.truthBubble = this.speech.create(this.speech.x - 650, this.speech.y + 125, "truth_png");
+	this.lieBubble = this.speech.create(this.speech.x + 600, this.speech.y + 125, "lie_png");
+	this.truthBubble.scale.setTo(0.5, 0.5);
+	this.lieBubble.scale.setTo(0.5, 0.5);
+};
+
+gameplayState.prototype.resetBubbles = function() {
+	this.truthBubble.x = -650;
+	this.lieBubble.x = 600;
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -217,24 +225,28 @@ gameplayState.prototype.placeClipboard = function() {
 gameplayState.prototype.moveBubbles = function() {
 	if (this.swipingText === true) {
 		if (this.startX > 325) {
-			if (game.input.worldX < 625) {
+			if (game.input.worldX < 600) {
 				this.lieBubble.x = game.input.worldX;
 			}
 		}
 		else {
 			if (game.input.worldX > 25) {
-				this.truthBubble.x = game.input.worldX;
+				this.truthBubble.x = (-650 - this.startX) + (game.input.worldX);
 			}
 		}
 	}
 };
 
-gameplayState.prototype.returnBubbles = function () {
+gameplayState.prototype.placeBubbles = function () {
 	if (this.swipedRight === true) {
-		let tween = game.add.tween(this.truthBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
+		let tween = game.add.tween(this.truthBubble).to( { x: 750 }, 800, Phaser.Easing.Quadratic.Out, true);
+		tween.onComplete.add(this.resetBubbles, this);
+		//this.newBubbles();
 	}
 	else if (this.swipedLeft === true) {
-		let tween = game.add.tween(this.lieBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
+		let tween = game.add.tween(this.lieBubble).to( { x: -750 }, 800, Phaser.Easing.Quadratic.Out, true);
+		tween.onComplete.add(this.resetBubbles,this);
+		//this.newBubbles();
 	}
 };
 
@@ -363,6 +375,7 @@ gameplayState.prototype.PrintText = function(){
 	}
 	else if(this.questionMode){
 		if(this.isQuestion == true){
+			this.resetBubbles();
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].question;
 		}
 		else{

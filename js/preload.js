@@ -13,8 +13,8 @@ preloadState.prototype.preload = function() {
 	// Person of Interest assets
 	game.load.image("poiPortrait_png", "assets/poiPortrait.png");
 	game.load.image("speechBubble_png", "assets/speechBubble.png");
-	game.load.image("truth_png", "assets/check.png");
-	game.load.image("lie_png", "assets/x.png");
+	game.load.image("truth_png", "assets/truth.png");
+	game.load.image("lie_png", "assets/lie.png");
 }
 
 preloadState.prototype.create = function() {
