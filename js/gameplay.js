@@ -42,16 +42,25 @@ gameplayState.prototype.create = function() {
 	this.isIntro = true;
 	this.isOutro = false;
 	this.isTransition = false;
-
+	this.isIntroTrans = false;
 
 	//get character data from JSON file and create text object
 	this.dia = game.add.text(game.world.centerX,750,this.charArr.characters[this.currChar].introStart, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"#ffffff"});
 	this.dia.anchor.setTo(.5);
 
 	//SCORE
-	//TODO make this value dynamic
-	this.maxCont = 2;
+	this.maxCont = this.charArr.contradictions;
 	this.currCont = 0;
+	this.currFalsePos = 0;
+	if(this.currentLevel === 1){
+		this.threshold = 3;
+	}
+	else if(this.currentLevel === 2){
+		this.threshold = 6;
+	}
+	else if(this.currentLevel === 3){
+		this.threshold = 4;
+	}
 
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
@@ -70,17 +79,7 @@ gameplayState.prototype.update = function() {
 	this.moveBubbles();
 	this.moveClipboard();
 
-	if(this.textMode){
-		if (this.swipedLeft === true) { // if(this.cursors.left.downDuration(5)) {
-	    	this.UpdateIntro();
-	    	this.swipedLeft = false;
-	    }
-		else if (this.swipedRight === true) { // if(this.cursors.right.downDuration(5)) {
-	    	this.UpdateIntro();
-	    	this.swipedRight = false;
-	  	}
-	}
-	else if (this.questionMode) {
+	if (this.questionMode) {
 		if (this.swipedLeft === true) { // (this.cursors.left.downDuration(5)) {
 	    	this.left();
 	    	this.swipedLeft = false;
@@ -166,7 +165,7 @@ gameplayState.prototype.initializeUI = function() {
 	this.swipedLeft = false;
 
 	this.speechBubble.inputEnabled = true;
-	this.speechBubble.events.onInputDown.add(this.UpdateIntro, this);
+	this.speechBubble.events.onInputDown.add(this.right, this);
 
 	// Clipboard
 	this.clipboard = game.add.group();
@@ -197,7 +196,7 @@ gameplayState.prototype.swipeSwitch = function() {
 		this.swipeActive = false;
 		this.speechBubble.events.onInputDown.removeAll();
 		this.speechBubble.events.onInputUp.removeAll();
-		this.speechBubble.events.onInputDown.add(this.UpdateIntro, this);
+		this.speechBubble.events.onInputDown.add(this.right, this);
 		this.bubbleSwitch();
 	}
 }
@@ -273,12 +272,16 @@ gameplayState.prototype.Conclude = function(){
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
+	game.state.states["Score"].passingScore = this.threshold;
 
 	game.state.start("Score");
 };
 
 gameplayState.prototype.UpdateIntro = function(){
-	if(this.isQuestion){
+	if(this.isIntroTrans){
+		this.isIntroTrans = false;
+	}
+	else if(this.isQuestion){
 		this.isQuestion = false;
 	}
 	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
@@ -313,7 +316,7 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.currChar++;
 			this.isIntro = true;
 			this.isOutro = false;
-			console.log(this.currChar + " : " + this.maxChar);
+			this.isIntroTrans = true;
 			if(this.currChar > this.maxChar){
 				this.Conclude();
 				return;
@@ -324,7 +327,6 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.questionMode = true;
 			this.isIntro = false;
 			this.isOutro = true;
-			this.swipeSwitch();
 		}
 		this.currSegment = 0;
 		this.currIntro = 0;
@@ -336,8 +338,10 @@ gameplayState.prototype.UpdateIntro = function(){
 }
 
 gameplayState.prototype.UpdateText = function(){
-	if(this.isQuestion === true){ //Display question
+	console.log("UT");
+	if(this.isQuestion == true){ //Display question
 		this.isQuestion = false;
+		this.swipeSwitch();
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
@@ -350,9 +354,11 @@ gameplayState.prototype.UpdateText = function(){
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
+		this.swipeSwitch();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
+		this.swipeSwitch();
 	}
 	else{
 		this.updateClipboard();
@@ -379,6 +385,9 @@ gameplayState.prototype.UpdateText = function(){
 };
 
 gameplayState.prototype.PrintText = function(){
+	if(this.isIntroTrans){
+		this.dia.text = this.charArr.characters[this.currChar].introStart;
+	}
 	if(this.isTransition){
 		//this.dia.style.font = 'Italic 28pt Arial';
 		if(this.isIntro){
@@ -421,7 +430,13 @@ gameplayState.prototype.PrintText = function(){
 };
 
 gameplayState.prototype.right = function() {
-	this.UpdateText();
+	if(this.questionMode){
+		this.UpdateText();
+	}
+	else{
+		this.UpdateIntro();
+	}
+
 };
 
 gameplayState.prototype.left = function(){
@@ -429,9 +444,14 @@ gameplayState.prototype.left = function(){
 		this.currCont++;
 	}
 	else if (this.currCont > 0){
-		this.currCont--;
+		this.currFalsePos++;
 	}
-	this.UpdateText();
+	if(this.questionMode){
+		this.UpdateText();
+	}
+	else{
+		this.UpdateIntro();
+	}
 };
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
