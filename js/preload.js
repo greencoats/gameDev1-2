@@ -11,7 +11,7 @@ preloadState.prototype.preload = function() {
 	game.load.image("board_png", "assets/board.png");
 
 	// Person of Interest assets
-	game.load.image("poiPortrait_png", "assets/bartender.png");
+	game.load.image("poiPortrait_png", "assets/customer.png");
 	game.load.image("speechBubble_png", "assets/speechBubble.png");
 	game.load.image("truth_png", "assets/truth.png");
 	game.load.image("lie_png", "assets/lie.png");

@@ -45,8 +45,7 @@ gameplayState.prototype.create = function() {
 	this.isIntroTrans = false;
 
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(game.world.centerX,750,this.charArr.characters[this.currChar].introStart, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"#ffffff"});
-	this.dia.anchor.setTo(.5);
+	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y - 180,this.charArr.characters[this.currChar].introStart, {fontSize: '20pt', wordWrap: true,wordWrapWidth: 420, fill:"##0a0a0a"},this.clipboard);
 
 	//SCORE
 	this.maxCont = this.charArr.contradictions;
@@ -64,11 +63,11 @@ gameplayState.prototype.create = function() {
 
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
-	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
+	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#b2109f', align: 'center'},this.clipboard);
 	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
-	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"",{font:'24px Arial', fill: '#ff0202', align: 'left'},this.clipboard);
+	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"Witness Statements:\n",{font:'24px Arial', fill: '#b2109f', align: 'left'},this.clipboard);
 
 	// STARS
 	this.statements = game.add.group();
@@ -227,13 +226,13 @@ gameplayState.prototype.placeClipboard = function() {
 		game.add.tween(this.clipboard).to( { y: 425 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipUp_png");
 		this.boardStart = 425;
-		game.add.tween(this.speech).to( { y: 295 }, 500, Phaser.Easing.Quadratic.Out, true);
+		game.add.tween(this.speech).to( { y: 295 }, 200, Phaser.Easing.Quadratic.Out, true);
 	}
 	else if (this.down === true) {
 		game.add.tween(this.clipboard).to( { y: -215 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipDown_png");
 		this.boardStart = -215;
-		game.add.tween(this.speech).to( { y: -345 }, 500, Phaser.Easing.Quadratic.Out, true);
+		game.add.tween(this.speech).to( { y: -345 }, 200, Phaser.Easing.Quadratic.Out, true);
 	}
 };
 
@@ -371,56 +370,58 @@ gameplayState.prototype.UpdateText = function(){
 		this.textMode = true;
 	}
 
-	//Hardcoded segment for determining when to update clipboard synopsis
-	if(this.currDialogues === 1 && this.currSegment === 1) {
-		this.synopsis.text += this.clipboardData.summaries[0][1];
-	}
-	else if(this.currDialogues === 2 && this.currSegment === 1) {
-		this.synopsis.text += this.clipboardData.summaries[0][2];
-	}
-
 	this.PrintText();
 
 	return;
 };
 
 gameplayState.prototype.PrintText = function(){
-	if(this.isIntroTrans){
-		this.dia.text = this.charArr.characters[this.currChar].introStart;
-	}
+	console.log("INTRO MODE " + this.isIntro);
+	console.log("TRANSITION MODE " + this.isTransition);
+	console.log("QUESTION MODE " + this.questionMode);
+	console.log("OUTRO MODE " + this.isOutro + "\n");
 	if(this.isTransition){
 		//this.dia.style.font = 'Italic 28pt Arial';
+		this.dia.addColor("#27d110",0);
+
 		if(this.isIntro){
 			this.dia.text = this.charArr.characters[this.currChar].introTransition;
 		}
 		else if(this.questionMode){
 			this.dia.text = this.charArr.characters[this.currChar].questionsTransition;
 		}
-		else if(this.isOutro){
+		else if(this.isOutro == true){
 			this.dia.text = this.charArr.characters[this.currChar].outroTransition;
 		}
 		//this.dia.style.font = 'Bold 28pt Arial';
 	}
 	else if(this.textMode){
+		this.dia.addColor("#000000",0);
 		if(this.isIntro){
 			if(this.isQuestion === true){
+				this.dia.addColor("#c60d0d",0);
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].question;
 			}
 			else{
+				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].segments[this.currSegment];
 			}
 		}
 		else if(this.isOutro){
 			if(this.isQuestion === true){
+				this.dia.addColor("#c60d0d",0);
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].question;
 			}
 			else{
+				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].segments[this.currSegment];
 			}
 		}
 	}
 	else if(this.questionMode){
+		this.dia.addColor("#0d14c6",0);
 		if (this.isQuestion === true){
+			this.dia.addColor("#c60d0d",0);
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].question;
 		}
 		else{
