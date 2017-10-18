@@ -1,5 +1,5 @@
 {
-    "contradictions" : 2,
+    "contradictions" : 1,
     "characters" : [
         {
             "introStart" : "Let's start with the basics. The bartender should know some stuff.",
@@ -96,7 +96,7 @@
                 {
                     "question": "And how would you know?",
                     "segments": ["I... Man, if you didn't buy me the best damn drink.","I know of the murderer."],
-                    "contradiction": [false, true],
+                    "contradiction": [false, false],
                     "timer": [6666,7777],
                     "abbr":  ["", "Custodian claims to know about the murderer\n"],
                     "summary": [false,false]
@@ -207,7 +207,7 @@
                     "question": "I understand. Where can I find him?",
                     "segments": ["“He will probably be at his office.","Let me write you his name and work address.", "You sure ask a lot of questions..."]
                     ,
-                    "summary": [false,true,false]
+                    "summary": [true,false,false]
                 }
             ],
 
