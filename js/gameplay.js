@@ -2,20 +2,28 @@
 // #####      GAMEPLAY      #####
 // ##############################
 let gameplayState = function(){
-	this.currentLevel = 0;
+	this.currentLevel = 1;
 };
 
 // ##############################
 // #####  PRE/CREATE/UPDATE #####
 // ##############################
 gameplayState.prototype.preload = function() {
-	game.load.json('character','characters_1.json');
-	game.load.json('clipboard','clipboard_1.json');
+	game.load.json('character1','characters_1.json');
+	game.load.json('character2','characters_2.json');
+	game.load.json('character3','characters_3.json');
+	game.load.json('clipboard1','clipboard_1.json');
+	game.load.json('clipboard2','clipboard_2.json');
+	game.load.json('clipboard3','clipboard_3.json');
 };
 
 gameplayState.prototype.create = function() {
 	// UI
 	this.initializeUI();
+
+	//JSON Data held in array
+	this.charArr = game.cache.getJSON('character' + this.currentLevel);
+	this.clipboardData = game.cache.getJSON('clipboard' + this.currentLevel);
 
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
@@ -23,7 +31,7 @@ gameplayState.prototype.create = function() {
 	this.currSegment = 0;
 	this.currIntro = 0;
 	this.currChar = 0;
-	this.maxChar = 0;
+	this.maxChar = this.charArr.characters.length-1;
 	this.isQuestion = true;
 
 	this.currSummary = 0;
@@ -35,13 +43,12 @@ gameplayState.prototype.create = function() {
 	this.isOutro = false;
 	this.isTransition = false;
 
-	//JSON Data held in array
-	this.charArr = game.cache.getJSON('character');
-	this.clipboardData = game.cache.getJSON('clipboard');
+
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y-175,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '24pt', wordWrap: true,wordWrapWidth: 420, fill:"#050505"},this.clipboard);
+	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y - 180,this.charArr.characters[this.currChar].introStart, {fontSize: '20pt', wordWrap: true,wordWrapWidth: 420, fill:"##0a0a0a"},this.clipboard);
 
 	//SCORE
+	//TODO make this value dynamic
 	this.maxCont = 2;
 	this.currCont = 0;
 
@@ -62,7 +69,17 @@ gameplayState.prototype.update = function() {
 	this.moveBubbles();
 	this.moveClipboard();
 
-	if (this.questionMode) {
+	if(this.textMode){
+		if (this.swipedLeft === true) { // if(this.cursors.left.downDuration(5)) {
+	    	this.UpdateIntro();
+	    	this.swipedLeft = false;
+	    }
+		else if (this.swipedRight === true) { // if(this.cursors.right.downDuration(5)) {
+	    	this.UpdateIntro();
+	    	this.swipedRight = false;
+	  	}
+	}
+	else if (this.questionMode) {
 		if (this.swipedLeft === true) { // (this.cursors.left.downDuration(5)) {
 	    	this.left();
 	    	this.swipedLeft = false;
@@ -251,7 +268,7 @@ gameplayState.prototype.placeBubbles = function () {
 // ##############################
 
 gameplayState.prototype.Conclude = function(){
-	console.log("here");
+	console.log(this.currChar);
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
@@ -296,12 +313,12 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.isIntro = true;
 			this.isOutro = false;
 			console.log(this.currChar + " : " + this.maxChar);
-			if(this.currChar >= this.maxChar){
+			if(this.currChar > this.maxChar){
 				this.Conclude();
 				return;
 			}
 		}
-		if(this.isIntro){
+		else if(this.isIntro){
 			this.textMode = false;
 			this.questionMode = true;
 			this.isIntro = false;
@@ -366,8 +383,11 @@ gameplayState.prototype.PrintText = function(){
 		if(this.isIntro){
 			this.dia.text = this.charArr.characters[this.currChar].introTransition;
 		}
-		else if(this.isOutro){
+		else if(this.questionMode){
 			this.dia.text = this.charArr.characters[this.currChar].questionsTransition;
+		}
+		else if(this.isOutro){
+			this.dia.text = this.charArr.characters[this.currChar].outroTransition;
 		}
 		//this.dia.style.font = 'Bold 28pt Arial';
 	}
@@ -404,8 +424,11 @@ gameplayState.prototype.right = function() {
 };
 
 gameplayState.prototype.left = function(){
-	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].contradiction[this.currSegment] && !this.isQuestion){
+	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].contradiction[this.currSegment] && !this.isQuestion && this.questionMode){
 		this.currCont++;
+	}
+	else if (this.currCont > 0){
+		this.currCont--;
 	}
 	this.UpdateText();
 };

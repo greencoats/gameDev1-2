@@ -49,7 +49,7 @@
                     "segments": ["The reports we’ve gotten imply the suspect dresses as a gay man, luring his targets.","He beats them on their home turf."],
                     "contradiction": [false,false],
                     "timer": [8888,8888],
-                    "abbr" : ["Killer poses as a gay man",""],
+                    "abbr" : ["Killer poses as a gay man\n",""],
                     "summary": [false,false]
                 },
                 {
