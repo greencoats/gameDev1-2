@@ -3,7 +3,7 @@
     "characters" : [
         {
             "introStart" : "Let's start with the basics. The bartender should know some stuff.",
-            
+
             "name": "Bartender",
             "picture": "/assets/bartender.png",
 

@@ -2,8 +2,8 @@
     "contradictions" : 0,
     "characters" : [
         {
-            "introStart" : "Let's start with the basics. The bartender should know some stuff.",
-            
+            "introStart" : "Boss called me into his office. Wonder what's up.",
+
             "name": "Randy's Boss",
             "picture": "/assets/boss.png",
 

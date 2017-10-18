@@ -13,6 +13,8 @@ preloadState.prototype.preload = function() {
 	// Person of Interest assets
 	game.load.image("poiPortrait_png", "assets/customer.png");
 
+	game.load.image("char0-0", "/assets/bartender.png");
+
 	game.load.image("char1-0", "/assets/bartender.png");
 	game.load.image("char1-1", "/assets/images/custodian.png");
 	game.load.image("char1-2", "/assets/images/customer.png");
@@ -26,6 +28,11 @@ preloadState.prototype.preload = function() {
 	game.load.image("speechBubble_png", "assets/speechBubble.png");
 	game.load.image("truth_png", "assets/truth.png");
 	game.load.image("lie_png", "assets/lie.png");
+
+	//Music Assets
+	game.load.audio("track_1", "assets/music/track1.wav");
+	game.load.audio("track_2", "assets/music/track2.wav");
+	game.load.audio("track_3", "assets/music/track3.wav");
 }
 
 preloadState.prototype.create = function() {
