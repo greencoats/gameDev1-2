@@ -2,7 +2,7 @@
     "contradictions" : 0,
     "characters" : [
         {
-            "introStart" : "Let's see if the information lines up.",
+            "introStart" : "(Let's see if the information lines up.)",
 
             "name": "Martha",
             "picture": "/assets/images/martha.png",
@@ -25,7 +25,7 @@
                 }
             ],
 
-            "introTransition" : "Let's see if she has accurate information for me.",
+            "introTransition" : "(Let's see if she has accurate information for me.)",
 
             "dialogues": [
                 {
@@ -54,7 +54,7 @@
                 }
             ],
 
-            "questionsTransition" : "That's enough here. I think I'm onto something.",
+            "questionsTransition" : "(That's enough here. I think I'm onto something.)",
 
             "outro" : [
                 {
@@ -69,13 +69,13 @@
                 }
             ],
 
-            "outroTransition" : "A gang leader... This is an interesting turn of events."
+            "outroTransition" : "(A gang leader... This is an interesting turn of events.)"
         },
         {
             "name": "Gang Leader",
             "picture": "/assets/images/gang.png",
 
-            "introStart": "I think I’ll get into uniform for this.",
+            "introStart": "(I think I’ll get into uniform for this.)",
 
             "intro": [
                 {
@@ -95,7 +95,7 @@
                 }
             ],
 
-            "introTransition" : "Wow, mentioning Martha really did the trick.",
+            "introTransition" : "(Wow, mentioning Martha really did the trick.)",
 
             "dialogues": [
                 {
@@ -132,7 +132,7 @@
                 }
             ],
 
-            "questionsTransition" : "Gotta get a move on. No time to waste.",
+            "questionsTransition" : "(Gotta get a move on. No time to waste.)",
 
             "outro" : [
                 {
@@ -142,7 +142,7 @@
                 }
             ],
 
-            "outroTransition" : "Ok, let's bust this guy!"
+            "outroTransition" : "(Ok, let's bust this guy!)"
         }
     ]
 }

@@ -2,7 +2,7 @@
     "contradictions" : 0,
     "characters" : [
         {
-            "introStart" : "Boss called me into his office. Wonder what's up.",
+            "introStart" : "(Boss called me into her office. Wonder what's up.)",
 
             "name": "Randy's Boss",
             "picture": "/assets/boss.png",
@@ -19,7 +19,7 @@
                 }
             ],
 
-            "introTransition" : "I’d better clear a few things first. And I’d better not forget that green text inside parentheses designates times when I’m thinking.",
+            "introTransition" : "(I’d better clear a few things first. And I’d better not forget that green text inside parentheses designates times when I’m thinking.)",
 
             "dialogues": [
                 {
@@ -32,7 +32,7 @@
                 },
                 {
                     "question": "Is there anything else I should know?",
-                    "segments": ["Hmm, let me think. If there’s something someone says that goes against the concrete facts we’ve got, I’d be hesitant to believe it.","Swipe right if you believe someone is saying something explicitly contrary to one of the clipboard FACTS.","Swipe left otherwise. Remember, witness statements are not necesarily true.", "Only the FACTS section has guaranteed facts."],
+                    "segments": ["Hmm, let me think. If there’s something someone says that goes against the concrete facts we’ve got, I’d be hesitant to believe it.","Swipe left if you believe someone is saying something explicitly contrary to one of the clipboard FACTS.","Swipe right otherwise. Remember, witness statements are not necesarily true.", "Only the FACTS section has guaranteed facts."],
                     "contradiction": [false,false,false,false],
                     "timer": [8888,8888,8888,8888],
                     "abbr" : ["","",""],
@@ -56,7 +56,7 @@
                 }
             ],
 
-            "questionsTransition" : "It's probably best if I get started soon.",
+            "questionsTransition" : "(It's probably best if I get started soon.)",
 
             "outro" : [
                 {
@@ -66,7 +66,7 @@
                 }
             ],
 
-            "outroTransition" : "Off I go then. I'll go undercover at a local gay bar. See what I can learn"
+            "outroTransition" : "(Off I go then. I'll go undercover at a local gay bar. See what I can learn)"
         }
     ]
 }

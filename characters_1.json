@@ -2,7 +2,7 @@
     "contradictions" : 1,
     "characters" : [
         {
-            "introStart" : "Let's start with the basics. The bartender should know some stuff.",
+            "introStart" : "(Let's start with the basics. The bartender should know some stuff.)",
 
             "name": "Bartender",
             "picture": "/assets/bartender.png",
@@ -20,7 +20,7 @@
                 }
             ],
 
-            "introTransition" : "Time to learn a few things.",
+            "introTransition" : "(Time to learn a few things.)",
 
             "dialogues": [
                 {
@@ -41,7 +41,7 @@
                 }
             ],
 
-            "questionsTransition" : "Seems like this is all I’m going to get.",
+            "questionsTransition" : "(Seems like this is all I’m going to get.)",
 
             "outro" : [
                 {
@@ -56,7 +56,7 @@
                 }
             ],
 
-            "outroTransition" : "The custodian, huh. I'll talk to him next."
+            "outroTransition" : "(The custodian, huh. I'll talk to him next.)"
         },
         {
             "name": "Custodian",
@@ -82,7 +82,7 @@
                 }
             ],
 
-            "introTransition" : "Time to learn a few things",
+            "introTransition" : "(Time to learn a few things)",
 
             "dialogues": [
                 {
@@ -111,7 +111,7 @@
                 }
             ],
 
-            "questionsTransition" : "Alright. This was surprisingly productive.",
+            "questionsTransition" : "(Alright. This was surprisingly productive.)",
 
             "outro" : [
                 {
@@ -126,13 +126,13 @@
                 }
             ],
 
-            "outroTransition" : "Hmmm… why him? Let’s see what he’s got."
+            "outroTransition" : "(Hmmm… why him? Let’s see what he’s got.)"
         },
         {
             "name": "Frequent Customer",
             "picture": "/assets/images/customer.png",
 
-            "introStart" : "He looks pretty unoccupied. Now's probably the best time.",
+            "introStart" : "(He looks pretty unoccupied. Now's probably the best time.)",
 
             "intro": [
                 {
@@ -142,7 +142,7 @@
                 }
             ],
 
-            "introTransition" : "Time to learn a few things",
+            "introTransition" : "(Time to learn a few things)",
 
             "dialogues": [
                 {
@@ -195,7 +195,7 @@
                 }
             ],
 
-            "questionsTransition" : "Hmm... This will do for now.",
+            "questionsTransition" : "(Hmm... This will do for now.)",
 
             "outro" : [
                 {
@@ -211,7 +211,7 @@
                 }
             ],
 
-            "outroTransition" : "Let me write this here… perfect. It’s time to boogie."
+            "outroTransition" : "(Let me write this here… perfect. It’s time to boogie.)"
         }
     ]
 }

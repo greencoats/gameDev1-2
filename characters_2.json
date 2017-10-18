@@ -2,7 +2,7 @@
     "contradictions" : 2,
     "characters" : [
         {
-            "introStart" : "I didn't know there was an officer with knowledge of the killer. I'll go ask him some questions",
+            "introStart" : "(I didn't know there was an officer with knowledge of the killer. I'll go ask him some questions)",
 
             "name": "James O'Donell",
             "picture": "/assets/images/officer.png",
@@ -25,7 +25,7 @@
                 }
             ],
 
-            "introTransition" : "Time to take some notes.",
+            "introTransition" : "(Time to take some notes.)",
 
             "dialogues": [
                 {
@@ -62,7 +62,7 @@
                 }
             ],
 
-            "questionsTransition" : "This was productive. Time to move on.",
+            "questionsTransition" : "(This was productive. Time to move on.)",
 
             "outro" : [
                 {
@@ -82,7 +82,7 @@
                 }
             ],
 
-            "outroTransition" : "Looks like her name is Martha. I should go look for her."
+            "outroTransition" : "(Looks like her name is Martha. I should go look for her.)"
         },
         {
             "name": "Witness",
@@ -103,7 +103,7 @@
                 }
             ],
 
-            "introTransition" : "It’s worth a try here. Let’s see if I can learn something new.",
+            "introTransition" : "(It’s worth a try here. Let’s see if I can learn something new.)",
 
             "dialogues": [
                 {
@@ -140,7 +140,7 @@
                 }
             ],
 
-            "questionsTransition" : "Hmm. It might be wise to make sure this information is accurate.",
+            "questionsTransition" : "(Hmm. It might be wise to make sure this information is accurate.)",
 
             "outro" : [
                 {
@@ -150,7 +150,7 @@
                 }
             ],
 
-            "outroTransition" : "Time to go find Martha."
+            "outroTransition" : "(Time to go find Martha.)"
         }
     ]
 }
