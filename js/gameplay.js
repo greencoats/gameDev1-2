@@ -40,8 +40,7 @@ gameplayState.prototype.create = function() {
 	this.charArr = game.cache.getJSON('character');
 	this.clipboardData = game.cache.getJSON('clipboard');
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(game.world.centerX,750,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"#ffffff"});
-	this.dia.anchor.setTo(.5);
+	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y-175,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '24pt', wordWrap: true,wordWrapWidth: 420, fill:"#050505"},this.clipboard);
 
 	//CONTROLS
 	this.cursors = game.input.keyboard.createCursorKeys();
