@@ -16,7 +16,6 @@ gameplayState.prototype.preload = function() {
 gameplayState.prototype.create = function() {
 	// UI
 	this.initializeUI();
-	this.newBubbles();
 
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
@@ -39,9 +38,6 @@ gameplayState.prototype.create = function() {
 	this.clipboardData = game.cache.getJSON('clipboard');
 	//get character data from JSON file and create text object
 	this.dia = game.add.text(20,300,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '32pt', fill:"#ffffff"});
-
-	//CONTROLS
-	this.cursors = game.input.keyboard.createCursorKeys();
 
 	//SCORE
 	this.maxCont = 2;
@@ -71,17 +67,7 @@ gameplayState.prototype.update = function() {
 	this.moveBubbles();
 	this.moveClipboard();
 
-	if(this.textMode){
-		if (this.swipedLeft === true) { // if(this.cursors.left.downDuration(5)) {
-	    	this.UpdateIntro();
-	    	this.swipedLeft = false;
-	    }
-		else if (this.swipedRight === true) { // if(this.cursors.right.downDuration(5)) {
-	    	this.UpdateIntro();
-	    	this.swipedRight = false;
-	  	}
-	}
-	else if (this.questionMode) {
+	if (this.questionMode) {
 		if (this.swipedLeft === true) { // (this.cursors.left.downDuration(5)) {
 	    	this.left();
 	    	this.swipedLeft = false;
@@ -158,12 +144,17 @@ gameplayState.prototype.initializeUI = function() {
 	this.speech.y = 295;
 
 	this.speechBubble = this.speech.create(this.speech.x, this.speech.y + 50, "speechBubble_png");
+	this.truthBubble = this.speech.create(this.speech.x - 800, this.speech.y + 125, "truth_png");
+	this.lieBubble = this.speech.create(this.speech.x + 750, this.speech.y + 125, "lie_png");
+	this.truthBubble.scale.setTo(0.5, 0.5);
+	this.lieBubble.scale.setTo(0.5, 0.5);
+
+	this.swipeActive = false;
 	this.swipedRight = false;
 	this.swipedLeft = false;
 
 	this.speechBubble.inputEnabled = true;
-	this.speechBubble.events.onInputDown.add(this.textSwipeBegin, this);
-	this.speechBubble.events.onInputUp.add(this.textSwipeEnd, this);
+	this.speechBubble.events.onInputDown.add(this.UpdateIntro, this);
 
 	// Clipboard
 	this.clipboard = game.add.group();
@@ -182,16 +173,32 @@ gameplayState.prototype.initializeUI = function() {
 	this.metalClip.events.onInputUp.add(this.boardSwipeEnd, this);
 };
 
-gameplayState.prototype.newBubbles = function() {
-	this.truthBubble = this.speech.create(this.speech.x - 650, this.speech.y + 125, "truth_png");
-	this.lieBubble = this.speech.create(this.speech.x + 600, this.speech.y + 125, "lie_png");
-	this.truthBubble.scale.setTo(0.5, 0.5);
-	this.lieBubble.scale.setTo(0.5, 0.5);
-};
+gameplayState.prototype.swipeSwitch = function() {
+	if (this.swipeActive === false) {
+		this.swipeActive = true;
+		this.speechBubble.events.onInputDown.removeAll();
+		this.speechBubble.events.onInputDown.add(this.textSwipeBegin, this);
+		this.speechBubble.events.onInputUp.add(this.textSwipeEnd, this);
+		this.bubbleSwitch();
+	}
+	else {
+		this.swipeActive = false;
+		this.speechBubble.events.onInputDown.removeAll();
+		this.speechBubble.events.onInputUp.removeAll();
+		this.speechBubble.events.onInputDown.add(this.UpdateIntro, this);
+		this.bubbleSwitch();
+	}
+}
 
-gameplayState.prototype.resetBubbles = function() {
-	this.truthBubble.x = -650;
-	this.lieBubble.x = 600;
+gameplayState.prototype.bubbleSwitch = function() {
+	if (this.swipeActive === true) {
+		this.truthBubble.x = -650;
+		this.lieBubble.x = 600;
+	}
+	else {
+		this.truthBubble.x = -800;
+		this.lieBubble.x = 750;
+	}
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -237,13 +244,11 @@ gameplayState.prototype.moveBubbles = function() {
 gameplayState.prototype.placeBubbles = function () {
 	if (this.swipedRight === true) {
 		let tween = game.add.tween(this.truthBubble).to( { x: 750 }, 800, Phaser.Easing.Quadratic.Out, true);
-		tween.onComplete.add(this.resetBubbles, this);
-		//this.newBubbles();
+		tween.onComplete.add(this.bubbleSwitch, this);
 	}
 	else if (this.swipedLeft === true) {
 		let tween = game.add.tween(this.lieBubble).to( { x: -750 }, 800, Phaser.Easing.Quadratic.Out, true);
-		tween.onComplete.add(this.resetBubbles,this);
-		//this.newBubbles();
+		tween.onComplete.add(this.bubbleSwitch,this);
 	}
 };
 
@@ -295,6 +300,7 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.questionMode = true;
 			this.isIntro = false;
 			this.isOutro = true;
+			this.swipeSwitch();
 		}
 		this.currSegment = 0;
 		this.currIntro = 0;
@@ -307,7 +313,7 @@ gameplayState.prototype.UpdateIntro = function(){
 }
 
 gameplayState.prototype.UpdateText = function(){
-	if(this.isQuestion == true){ //Display question
+	if(this.isQuestion === true){ //Display question
 		this.isQuestion = false;
 		this.updateCounter();
 	}
@@ -338,10 +344,10 @@ gameplayState.prototype.UpdateText = function(){
 	}
 
 	//Hardcoded segment for determining when to update clipboard synopsis
-	if(this.currDialogues==1 && this.currSegment==1) {
+	if(this.currDialogues === 1 && this.currSegment === 1) {
 		this.synopsis.text += this.clipboardData.summaries[0][1];
 	}
-	else if(this.currDialogues==2 && this.currSegment==1) {
+	else if(this.currDialogues === 2 && this.currSegment === 1) {
 		this.synopsis.text += this.clipboardData.summaries[0][2];
 	}
 
@@ -362,7 +368,7 @@ gameplayState.prototype.PrintText = function(){
 	}
 	else if(this.textMode){
 		if(this.isIntro){
-			if(this.isQuestion == true){
+			if(this.isQuestion === true){
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].question;
 			}
 			else{
@@ -370,7 +376,7 @@ gameplayState.prototype.PrintText = function(){
 			}
 		}
 		else if(this.isOutro){
-			if(this.isQuestion == true){
+			if(this.isQuestion === true){
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].question;
 			}
 			else{
@@ -379,8 +385,7 @@ gameplayState.prototype.PrintText = function(){
 		}
 	}
 	else if(this.questionMode){
-		if(this.isQuestion == true){
-			this.resetBubbles();
+		if (this.isQuestion === true){
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].question;
 		}
 		else{
