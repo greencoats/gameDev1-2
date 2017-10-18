@@ -2,15 +2,19 @@
 // #####      GAMEPLAY      #####
 // ##############################
 let gameplayState = function(){
-	this.currentLevel = 0;
+	this.currentLevel = 1;
 };
 
 // ##############################
 // #####  PRE/CREATE/UPDATE #####
 // ##############################
 gameplayState.prototype.preload = function() {
-	game.load.json('character','characters_1.json');
-	game.load.json('clipboard','clipboard_1.json');
+	game.load.json('character1','characters_1.json');
+	game.load.json('character2','characters_2.json');
+	game.load.json('character3','characters_3.json');
+	game.load.json('clipboard1','clipboard_1.json');
+	game.load.json('clipboard2','clipboard_2.json');
+	game.load.json('clipboard3','clipboard_3.json');
 };
 
 gameplayState.prototype.create = function() {
@@ -19,8 +23,8 @@ gameplayState.prototype.create = function() {
 	this.newBubbles();
 
 	//JSON Data held in array
-	this.charArr = game.cache.getJSON('character');
-	this.clipboardData = game.cache.getJSON('clipboard');
+	this.charArr = game.cache.getJSON('character' + this.currentLevel);
+	this.clipboardData = game.cache.getJSON('clipboard' + this.currentLevel);
 
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
@@ -49,6 +53,7 @@ gameplayState.prototype.create = function() {
 	this.cursors = game.input.keyboard.createCursorKeys();
 
 	//SCORE
+	//TODO make this value dynamic
 	this.maxCont = 2;
 	this.currCont = 0;
 
