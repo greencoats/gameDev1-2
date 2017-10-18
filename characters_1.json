@@ -1,5 +1,5 @@
 {
-    "contradictions" : 1,
+    "contradictions" : 2,
     "characters" : [
         {
             "introStart" : "Let's start with the basics. The bartender should know some stuff.",
@@ -207,7 +207,7 @@
                     "question": "I understand. Where can I find him?",
                     "segments": ["“He will probably be at his office.","Let me write you his name and work address.", "You sure ask a lot of questions..."]
                     ,
-                    "summary": [false,true,false]
+                    "summary": [true,false,false]
                 }
             ],
 
