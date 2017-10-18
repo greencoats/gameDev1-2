@@ -210,13 +210,13 @@ gameplayState.prototype.placeClipboard = function() {
 		game.add.tween(this.clipboard).to( { y: 425 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipUp_png");
 		this.boardStart = 425;
-		game.add.tween(this.speech).to( { y: 295 }, 500, Phaser.Easing.Quadratic.Out, true);
+		game.add.tween(this.speech).to( { y: 295 }, 200, Phaser.Easing.Quadratic.Out, true);
 	}
 	else if (this.down === true) {
 		game.add.tween(this.clipboard).to( { y: -215 }, 500, Phaser.Easing.Quadratic.Out, true);
 		this.metalClip.loadTexture("metalClipDown_png");
 		this.boardStart = -215;
-		game.add.tween(this.speech).to( { y: -345 }, 500, Phaser.Easing.Quadratic.Out, true);
+		game.add.tween(this.speech).to( { y: -345 }, 200, Phaser.Easing.Quadratic.Out, true);
 	}
 };
 
