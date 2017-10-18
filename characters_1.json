@@ -9,11 +9,13 @@
             "intro": [
                 {
                     "question": "Hey there. You don’t mind if I take a seat, now do you?",
-                    "segments": ["Hmm? Go right ahead."]
+                    "segments": ["Hmm? Go right ahead."],
+                    "summary": [false]
                 },
                 {
                     "question": "I reckon you have heard about the murders happening around here.",
-                    "segments": ["I’ve heard some things."]
+                    "segments": ["I’ve heard some things."],
+                    "summary": [false]
                 }
             ],
 
@@ -25,14 +27,16 @@
                     "segments": ["Nothing out of the ordinary.", "He's probably made it as far as he has because he can stay hidden."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["",""]
+                    "abbr": ["","Killer appears to be able to blend in\n"],
+                    "summary": [false,false]
                 },
                 {
                     "question": "This idiot have a name?",
                     "segments": ["I’m afraid I don’t know that much."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""]
+                    "abbr" : ["Bartender does not know killer's name\n"],
+                    "summary": [false]
                 }
             ],
 
@@ -41,11 +45,13 @@
             "outro" : [
                 {
                     "question": "You sure know a lot.",
-                    "segments": ["I do run the bar here, you know.","I think the only other person here as much as I am is the custodian."]
+                    "segments": ["I do run the bar here, you know.","I think the only other person here as much as I am is the custodian."],
+                    "summary": [false,false]
                 },
                 {
                     "question": "Good chat. Thanks for the drink",
-                    "segments": ["Come again now, you hear?"]
+                    "segments": ["Come again now, you hear?"],
+                    "summary": [false]
                 }
             ],
 
@@ -60,15 +66,18 @@
             "intro": [
                 {
                     "question": "That’s a fine cleaning job you’re doing.",
-                    "segments": ["What of it? What do you want?"]
+                    "segments": ["What of it? What do you want?"],
+                    "summary": [false]
                 },
                 {
                     "question": "The kind fellow working the bar told me about you. I’d like to know a few things.",
-                    "segments": ["Woah there, man. That’s not how you strike up a conversation."]
+                    "segments": ["Woah there, man. That’s not how you strike up a conversation."],
+                    "summary": [false]
                 },
                 {
                     "question": "How about this? I'll buy you a drink, your pick.",
-                    "segments": ["Oh, alright, alright. Get me the most expensive one. Then we can get started."]
+                    "segments": ["Oh, alright, alright. Get me the most expensive one. Then we can get started."],
+                    "summary": [false]
                 }
             ],
 
@@ -80,21 +89,24 @@
                     "segments": ["I should have known this wasn't idle chitchat.", "The murderer might be a customer here."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["", ""]
+                    "abbr": ["", "Murderer could be a customer"],
+                    "summary": [false,false]
                 },
                 {
                     "question": "And how would you know?",
                     "segments": ["I... Man, if you didn't buy me the best damn drink.","I know of the murderer."],
                     "contradiction": [false, true],
                     "timer": [6666,7777],
-                    "abbr":  ["", ""]
+                    "abbr":  ["", "Custodian claims to know about the murderer\n"],
+                    "summary": [false,false]
                 },
                 {
                     "question": "Let's hear it.",
                     "segments": ["He goes by Jones. A friend of his would come and keep me company while I work my butt off."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""]
+                    "abbr" : ["Murderer goes by Jones\n"],
+                    "summary": [true]
                 }
             ],
 
@@ -103,11 +115,13 @@
             "outro" : [
                 {
                     "question": "Anything else you’d like to share?",
-                    "segments": ["Afraid that's all I know."]
+                    "segments": ["Afraid that's all I know."],
+                    "summary": [true]
                 },
                 {
                     "question": "Thank you. Enjoy your drink, friend.",
-                    "segments": ["If you need to squeeze some info out of someone else, that guy at the bar comes here often.","I need to get back to work."]
+                    "segments": ["If you need to squeeze some info out of someone else, that guy at the bar comes here often.","I need to get back to work."],
+                    "summary": [false,false]
                 }
             ],
 
@@ -122,7 +136,8 @@
             "intro": [
                 {
                     "question": "Ah, that’s a good beer you’ve got there.",
-                    "segments": ["You’ve got good taste, my friend. Take a seat."]
+                    "segments": ["You’ve got good taste, my friend. Take a seat."],
+                    "summary": [false]
                 }
             ],
 
@@ -134,42 +149,48 @@
                     "segments": ["Murders you say?", "I guess I've heard some chatter."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["",""]
+                    "abbr": ["","Customer has heard about the murders\n"],
+                    "summary": [false,false]
                 },
                 {
                     "question": "I had a chat with the custodian earlier. He knew of the killer, and thought you would know some things.",
                     "segments": ["Yes, I do know a little. I take it you want me to share."],
                     "contradiction": [false],
                     "timer": [6666],
-                    "abbr":  [""]
+                    "abbr":  [""],
+                    "summary": [false]
                 },
                 {
                     "question": "You must know something then?",
                     "segments": ["Another guy, a friend of a friend told me some things.","The other day, he mentioned this murderer. Said he seemed a little out of place."],
                     "contradiction": [false,false],
                     "timer": [8888,8888],
-                    "abbr" : ["",""]
+                    "abbr" : ["",""],
+                    "summary": [false,false]
                 },
                 {
                     "question": "Care to elaborate?",
                     "segments": ["He seemed a little odd, but he didn’t feel like the criminal-type."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""]
+                    "abbr" : [""],
+                    "summary": [false]
                 },
                 {
                     "question": "Any specifics?",
                     "segments": ["I've heard his name was Jackson."],
                     "contradiction": [true],
                     "timer": [8888],
-                    "abbr" : [""]
+                    "abbr" : ["Customer claims murderer's name is Jackson"],
+                    "summary": [false]
                 },
                 {
                     "question": "What does your friend do?",
                     "segments": ["My friend’s friend, you mean? He works for the NYPD."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""]
+                    "abbr" : ["Customer's friend apparently works for the NYPD"],
+                    "summary": [false]
                 }
             ],
 
@@ -178,11 +199,14 @@
             "outro" : [
                 {
                     "question": "“Sounds like your friend knows quite a bit about this.",
-                    "segments": ["I guess that’s one way to put it.","And he’s a friend of a friend. Get it right."]
+                    "segments": ["I guess that’s one way to put it.","And he’s a friend of a friend. Get it right."],
+                    "summary": [false,false]
                 },
                 {
                     "question": "I understand. Where can I find him?",
                     "segments": ["“He will probably be at his office.","Let me write you his name and work address.", "You sure ask a lot of questions..."]
+                    ,
+                    "summary": [false,true,false]
                 }
             ],
 

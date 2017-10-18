@@ -9,8 +9,8 @@ let gameplayState = function(){
 // #####  PRE/CREATE/UPDATE #####
 // ##############################
 gameplayState.prototype.preload = function() {
-	game.load.json('character','exampleJSON.json');
-	game.load.json('clipboard','clipboardJSON.json');
+	game.load.json('character','characters_1.json');
+	game.load.json('clipboard','clipboard_1.json');
 };
 
 gameplayState.prototype.create = function() {
@@ -25,6 +25,8 @@ gameplayState.prototype.create = function() {
 	this.currChar = 0;
 	this.maxChar = 3;
 	this.isQuestion = true;
+
+	this.currSummary = 0;
 
 	//booleans to create modes of gameplayState
 	this.textMode = true;
@@ -52,8 +54,9 @@ gameplayState.prototype.create = function() {
 	timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
 
 	//Add initial synopsis text to clipboard
-	this.synopText = this.clipboardData.summaries[0][0];
+	this.synopText = this.clipboardData.summaries[0];
 	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
+	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
 	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"",{font:'24px Arial', fill: '#ff0202', align: 'left'},this.clipboard);
@@ -271,11 +274,13 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
 	else if (this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
@@ -286,6 +291,7 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else{
 		this.updateClipboard();
+		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
 			this.isIntro = true;
@@ -319,11 +325,13 @@ gameplayState.prototype.UpdateText = function(){
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
@@ -334,6 +342,7 @@ gameplayState.prototype.UpdateText = function(){
 	}
 	else{
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues = 0;
 		this.isQuestion = true;
@@ -425,5 +434,14 @@ gameplayState.prototype.updateCounter = function() {
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
 	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
 		this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
+	}
+}
+
+gameplayState.prototype.updateSummary = function() { //Function will update the clipboard synopsis if needed
+	console.log("RUNNING SUMMARY CHECK");
+	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] == true) {
+		console.log("UPDATING CLIPBOARD");
+		this.synopsis.text += this.clipboardData.summaries[this.currSummary];
+		this.currSummary++;
 	}
 }
