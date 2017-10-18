@@ -90,7 +90,7 @@
                     "segments": ["I should have known this wasn't idle chitchat.", "The murderer might be a customer here."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["", "Murderer could be a customer"],
+                    "abbr": ["", "Murderer could be a customer\n"],
                     "summary": [false,false]
                 },
                 {
@@ -182,7 +182,7 @@
                     "segments": ["I've heard his name was Jackson."],
                     "contradiction": [true],
                     "timer": [8888],
-                    "abbr" : ["Customer claims murderer's name is Jackson"],
+                    "abbr" : ["Customer claims murderer's name is Jackson\n"],
                     "summary": [false]
                 },
                 {
@@ -190,7 +190,7 @@
                     "segments": ["My friend’s friend, you mean? He works for the NYPD."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : ["Customer's friend apparently works for the NYPD"],
+                    "abbr" : ["Customer's friend apparently works for the NYPD\n"],
                     "summary": [false]
                 }
             ],

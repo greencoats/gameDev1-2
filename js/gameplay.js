@@ -45,7 +45,7 @@ gameplayState.prototype.create = function() {
 
 
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y - 180,this.charArr.characters[this.currChar].introStart, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"##0a0a0a"},this.clipboard);
+	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y - 180,this.charArr.characters[this.currChar].introStart, {fontSize: '20pt', wordWrap: true,wordWrapWidth: 420, fill:"##0a0a0a"},this.clipboard);
 
 	//SCORE
 	//TODO make this value dynamic
