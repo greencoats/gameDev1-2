@@ -18,8 +18,6 @@ gameplayState.prototype.preload = function() {
 };
 
 gameplayState.prototype.create = function() {
-	// UI
-	this.initializeUI();
 
 	//JSON Data held in array
 	this.charArr = game.cache.getJSON('character' + this.currentLevel);
@@ -38,6 +36,8 @@ gameplayState.prototype.create = function() {
 	this.isTransition = false;
 	this.isIntroTrans = true;
 
+	// UI
+	this.initializeUI();
 
 	this.currSummary = 0;
 
@@ -147,7 +147,7 @@ gameplayState.prototype.boardSwipeEnd = function() {
 
 gameplayState.prototype.initializeUI = function() {
 	// Background
-	this.suspect = game.add.sprite(0, 0, "poiPortrait_png");
+	this.suspect = game.add.sprite(0, 0, "char" + this.currentLevel + "-" + this.currChar);
 
 	// Speech Bubble
 	this.speech = game.add.group();
@@ -273,6 +273,7 @@ gameplayState.prototype.Conclude = function(){
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
 	game.state.states["Score"].passingScore = this.threshold;
+	game.state.states["Score"].falsePos = this.currFalsePos;
 
 	game.state.start("Score");
 };
@@ -315,6 +316,7 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
+			this.suspect.loadTexture("char" + this.currentLevel + "-" + this.currChar);
 			this.isIntro = true;
 			this.isOutro = false;
 			this.isIntroTrans = true;
@@ -447,7 +449,7 @@ gameplayState.prototype.left = function(){
 	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].contradiction[this.currSegment] && !this.isQuestion && this.questionMode){
 		this.currCont++;
 	}
-	else if (this.currCont > 0){
+	else{
 		this.currFalsePos++;
 	}
 	if(this.questionMode){
