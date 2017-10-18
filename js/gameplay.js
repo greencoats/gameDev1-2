@@ -33,16 +33,17 @@ gameplayState.prototype.create = function() {
 	this.currChar = 0;
 	this.maxChar = this.charArr.characters.length-1;
 	this.isQuestion = true;
+	this.isIntro = true;
+	this.isOutro = false;
+	this.isTransition = false;
+	this.isIntroTrans = true;
+
 
 	this.currSummary = 0;
 
 	//booleans to create modes of gameplayState
 	this.textMode = true;
 	this.questionMode = false;
-	this.isIntro = true;
-	this.isOutro = false;
-	this.isTransition = false;
-	this.isIntroTrans = false;
 
 	//get character data from JSON file and create text object
 	this.dia = game.add.text(this.clipboard.x+190,this.clipboard.y - 180,this.charArr.characters[this.currChar].introStart, {fontSize: '20pt', wordWrap: true,wordWrapWidth: 420, fill:"##0a0a0a"},this.clipboard);
@@ -313,6 +314,7 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
+			this.
 			this.isIntro = true;
 			this.isOutro = false;
 			this.isIntroTrans = true;
