@@ -4,12 +4,12 @@ let menuState = function () {
 };
 
 menuState.prototype.preload = function () {
-  game.load.spritesheet('button','assets/buttons/button.png',600,296);
+  game.load.spritesheet('title_png','assets/title.png',750, 1335);
 };
 
 menuState.prototype.create = function () {
   this.changeState = false;
-  this.button = game.add.button(game.world.centerX - 300, 300, 'button', this.Press, this);
+  this.title = game.add.button(0, 0, 'title_png', this.Press, this);
 };
 
 menuState.prototype.Press = function (){
