@@ -364,53 +364,58 @@ gameplayState.prototype.UpdateText = function(){
 		this.textMode = true;
 	}
 
-	//Hardcoded segment for determining when to update clipboard synopsis
-	if(this.currDialogues === 1 && this.currSegment === 1) {
-		this.synopsis.text += this.clipboardData.summaries[0][1];
-	}
-	else if(this.currDialogues === 2 && this.currSegment === 1) {
-		this.synopsis.text += this.clipboardData.summaries[0][2];
-	}
-
 	this.PrintText();
 
 	return;
 };
 
 gameplayState.prototype.PrintText = function(){
+	console.log("INTRO MODE " + this.isIntro);
+	console.log("TRANSITION MODE " + this.isTransition);
+	console.log("QUESTION MODE " + this.questionMode);
+	console.log("OUTRO MODE " + this.isOutro + "\n");
 	if(this.isTransition){
 		//this.dia.style.font = 'Italic 28pt Arial';
+		this.dia.addColor("#27d110",0);
+		
 		if(this.isIntro){
 			this.dia.text = this.charArr.characters[this.currChar].introTransition;
 		}
 		else if(this.questionMode){
 			this.dia.text = this.charArr.characters[this.currChar].questionsTransition;
 		}
-		else if(this.isOutro){
+		else if(this.isOutro == true){
 			this.dia.text = this.charArr.characters[this.currChar].outroTransition;
 		}
 		//this.dia.style.font = 'Bold 28pt Arial';
 	}
 	else if(this.textMode){
+		this.dia.addColor("#000000",0);
 		if(this.isIntro){
 			if(this.isQuestion === true){
+				this.dia.addColor("#c60d0d",0);
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].question;
 			}
 			else{
+				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].intro[this.currIntro].segments[this.currSegment];
 			}
 		}
 		else if(this.isOutro){
 			if(this.isQuestion === true){
+				this.dia.addColor("#c60d0d",0);
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].question;
 			}
 			else{
+				this.dia.addColor("#0d14c6",0);
 				this.dia.text = this.charArr.characters[this.currChar].outro[this.currIntro].segments[this.currSegment];
 			}
 		}
 	}
 	else if(this.questionMode){
+		this.dia.addColor("#0d14c6",0);
 		if (this.isQuestion === true){
+			this.dia.addColor("#c60d0d",0);
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].question;
 		}
 		else{
