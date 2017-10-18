@@ -1,0 +1,72 @@
+{
+    "contradictions" : 0,
+    "characters" : [
+        {
+            "introStart" : "Boss called me into his office. Wonder what's up.",
+
+            "name": "Randy's Boss",
+            "picture": "/assets/boss.png",
+            "intro": [
+                {
+                    "question": "You called, sir?",
+                    "segments": ["Yes, Randy. Take a seat."],
+                    "summary": [false]
+                },
+                {
+                    "question": "What's going on?",
+                    "segments": ["I’d like you to go undercover.", "There’s been a disturbing trend of murders happening around gay bars."],
+                    "summary": [false]
+                }
+            ],
+
+            "introTransition" : "I’d better clear a few things first. And I’d better not forget that green text inside parentheses designates times when I’m thinking.",
+
+            "dialogues": [
+                {
+                    "question": "What information do we currently have?",
+                    "segments": ["If you swipe to the right or left, all the papers regarding the case are in a folder.", "I’ll jot some notes on your clipboard with my purple pen. These will be cold hard facts."],
+                    "contradiction": [false, false],
+                    "timer": [3333,4444],
+                    "abbr": ["",""],
+                    "summary": [false,true]
+                },
+                {
+                    "question": "Is there anything else I should know?",
+                    "segments": ["Hmm, let me think. If there’s something someone says that goes against the concrete facts we’ve got, I’d be hesitant to believe it.","Swipe right if you beieve someone is saying something explicitly contrary to one of the clipboard facts.","Swipe left otherwise."],
+                    "contradiction": [false,false,false],
+                    "timer": [8888,8888,8888],
+                    "abbr" : ["","",""],
+                    "summary": [false,false,false]
+                },
+                {
+                    "question": "That should definitely come in handy.",
+                    "segments": ["It sure will. Don’t forget to note any relevant statements witnesses tell you.", "Here. you can borrow my purple pen."],
+                    "contradiction": [false,false],
+                    "timer": [8888,8888],
+                    "abbr" : ["","I can now take note of witness statements\n"],
+                    "summary": [false,false]
+                },
+                {
+                    "question": "Thank you.",
+                    "segments": ["Don’t mention it. Remember to swipe up to look at your clipboard, and swipe down to put it away."],
+                    "contradiction": [false],
+                    "timer": [3333],
+                    "abbr": [""],
+                    "summary": [false]
+                }
+            ],
+
+            "questionsTransition" : "It's probably best if I get started soon.",
+
+            "outro" : [
+                {
+                    "question": "If we’ve covered everything here, I’ll be on my way.",
+                    "segments": ["One last thing. People you’ll talk to, like me, will have their speech in blue text. If you’re talking, the words will be red."],
+                    "summary": [false]
+                }
+            ],
+
+            "outroTransition" : "Off I go then. I'll go undercover at a local gay bar. See what I can learn"
+        }
+    ]
+}
