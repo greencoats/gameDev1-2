@@ -7,16 +7,18 @@ let scoreState = function () {
 }
 
 scoreState.prototype.preload = function () {
+  game.load.spritesheet("backdrop_png", "assets/blankClip.png");
   game.load.spritesheet('button','assets/buttons/button.png',600,296);
 }
 
 scoreState.prototype.create = function () {
+  game.add.sprite(0,0,"backdrop_png");
   this.changeState = false;
 
-  this.scoretext = game.add.text(game.world.centerX,300,"Correct Contradictions: " + this.score + " / " + this.maxScore, {fontSize: '32pt', fill:"#ffffff"});
-  this.scoretext2 = game.add.text(game.world.centerX,400,"False Negatives: " + this.falsePos + " / " + this.passingScore, {fontSize: '32pt', fill:"#ffffff"});
-  this.condition = game.add.text(game.world.centerX,600,"", {fontSize: '32pt', fill:"#ffffff"});
-  this.leveltext = game.add.text(game.world.centerX,100,"Level: " + this.level, {fontSize: '32pt', fill:"#ffffff"});
+  this.scoretext = game.add.text(game.world.centerX,400,"Correct Contradictions: " + this.score + " / " + this.maxScore, {fontSize: '32pt', fill:"#171717"});
+  this.scoretext2 = game.add.text(game.world.centerX,500,"False Negatives: " + this.falsePos + " / " + this.passingScore, {fontSize: '32pt', fill:"#171717"});
+  this.condition = game.add.text(game.world.centerX,700,"", {fontSize: '32pt', fill:"#171717"});
+  this.leveltext = game.add.text(game.world.centerX,300,"Level: " + this.level, {fontSize: '32pt', fill:"#171717"});
   this.scoretext.anchor.setTo(0.5);
   this.scoretext2.anchor.setTo(0.5);
   this.condition.anchor.setTo(0.5);
