@@ -32,11 +32,11 @@
                 },
                 {
                     "question": "Is there anything else I should know?",
-                    "segments": ["Hmm, let me think. If there’s something someone says that goes against the concrete facts we’ve got, I’d be hesitant to believe it.","Swipe right if you beieve someone is saying something explicitly contrary to one of the clipboard facts.","Swipe left otherwise."],
-                    "contradiction": [false,false,false],
-                    "timer": [8888,8888,8888],
+                    "segments": ["Hmm, let me think. If there’s something someone says that goes against the concrete facts we’ve got, I’d be hesitant to believe it.","Swipe right if you believe someone is saying something explicitly contrary to one of the clipboard FACTS.","Swipe left otherwise. Remember, witness statements are not necesarily true.", "Only the FACTS section has guaranteed facts."],
+                    "contradiction": [false,false,false,false],
+                    "timer": [8888,8888,8888,8888],
                     "abbr" : ["","",""],
-                    "summary": [false,false,false]
+                    "summary": [false,false,false,false]
                 },
                 {
                     "question": "That should definitely come in handy.",
