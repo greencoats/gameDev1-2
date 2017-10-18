@@ -11,9 +11,9 @@ preloadState.prototype.preload = function() {
 	game.load.image("board_png", "assets/board.png");
 
 	// Person of Interest assets
-	game.load.image("poiPortrait_png", "assets/customer.png");
+	game.load.image("poiPortrait_png", "assets/officer.png");
 
-	game.load.image("char0-0", "/assets/boss.png");
+	game.load.image("char0-0", "/assets/officer.png");
 
 	game.load.image("char1-0", "/assets/bartender.png");
 	game.load.image("char1-1", "/assets/custodian.png");
@@ -33,6 +33,7 @@ preloadState.prototype.preload = function() {
 	game.load.audio("track_1", "assets/music/track1.wav");
 	game.load.audio("track_2", "assets/music/track2.wav");
 	game.load.audio("track_3", "assets/music/track3.wav");
+	game.load.audio("writing", "assets/music/writing.wav");
 }
 
 preloadState.prototype.create = function() {
