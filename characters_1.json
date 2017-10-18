@@ -27,7 +27,7 @@
                     "segments": ["Nothing out of the ordinary.", "He's probably made it as far as he has because he can stay hidden."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["",""],
+                    "abbr": ["","Killer appears to be able to blend in\n"],
                     "summary": [false,false]
                 },
                 {
@@ -35,7 +35,7 @@
                     "segments": ["I’m afraid I don’t know that much."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""],
+                    "abbr" : ["Bartender does not know killer's name\n"],
                     "summary": [false]
                 }
             ],
@@ -89,7 +89,7 @@
                     "segments": ["I should have known this wasn't idle chitchat.", "The murderer might be a customer here."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["", ""],
+                    "abbr": ["", "Murderer could be a customer"],
                     "summary": [false,false]
                 },
                 {
@@ -97,7 +97,7 @@
                     "segments": ["I... Man, if you didn't buy me the best damn drink.","I know of the murderer."],
                     "contradiction": [false, true],
                     "timer": [6666,7777],
-                    "abbr":  ["", ""],
+                    "abbr":  ["", "Custodian claims to know about the murderer\n"],
                     "summary": [false,false]
                 },
                 {
@@ -105,7 +105,7 @@
                     "segments": ["He goes by Jones. A friend of his would come and keep me company while I work my butt off."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""],
+                    "abbr" : ["Murderer goes by Jones\n"],
                     "summary": [true]
                 }
             ],
@@ -149,7 +149,7 @@
                     "segments": ["Murders you say?", "I guess I've heard some chatter."],
                     "contradiction": [false, false],
                     "timer": [3333,4444],
-                    "abbr": ["",""],
+                    "abbr": ["","Customer has heard about the murders\n"],
                     "summary": [false,false]
                 },
                 {
@@ -181,7 +181,7 @@
                     "segments": ["I've heard his name was Jackson."],
                     "contradiction": [true],
                     "timer": [8888],
-                    "abbr" : [""],
+                    "abbr" : ["Customer claims murderer's name is Jackson"],
                     "summary": [false]
                 },
                 {
@@ -189,7 +189,7 @@
                     "segments": ["My friend’s friend, you mean? He works for the NYPD."],
                     "contradiction": [false],
                     "timer": [8888],
-                    "abbr" : [""],
+                    "abbr" : ["Customer's friend apparently works for the NYPD"],
                     "summary": [false]
                 }
             ],
