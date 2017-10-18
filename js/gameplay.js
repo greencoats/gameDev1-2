@@ -70,7 +70,17 @@ gameplayState.prototype.update = function() {
 	this.moveBubbles();
 	this.moveClipboard();
 
-	if (this.questionMode) {
+	if(this.textMode){
+		if (this.swipedLeft === true) { // if(this.cursors.left.downDuration(5)) {
+	    	this.UpdateIntro();
+	    	this.swipedLeft = false;
+	    }
+		else if (this.swipedRight === true) { // if(this.cursors.right.downDuration(5)) {
+	    	this.UpdateIntro();
+	    	this.swipedRight = false;
+	  	}
+	}
+	else if (this.questionMode) {
 		if (this.swipedLeft === true) { // (this.cursors.left.downDuration(5)) {
 	    	this.left();
 	    	this.swipedLeft = false;
