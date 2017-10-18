@@ -52,14 +52,6 @@ gameplayState.prototype.create = function() {
 	this.maxCont = 2;
 	this.currCont = 0;
 
-	//Create the timer
-	timer = game.time.create(false);
-	this.timeToCopmlete = this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
-	console.log("Time to complete is " + this.timeToCopmlete);
-
-	//After specified number of seconds, updateText is called
-	//timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
-
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
 	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
@@ -96,7 +88,6 @@ gameplayState.prototype.update = function() {
 	    	this.right();
 	    	this.swipedRight = false;
 	  	}
-		game.debug.text('Time to complete dialogue: ' + (timer.duration/1000).toFixed(0), 32, 32);
 	}
 };
 
@@ -269,32 +260,28 @@ gameplayState.prototype.Conclude = function(){
 gameplayState.prototype.UpdateIntro = function(){
 	if(this.isQuestion){
 		this.isQuestion = false;
-		this.updateCounter();
 	}
 	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment++;
-		this.updateCounter();
 	}
 	else if(this.isOutro && this.currSegment < this.charArr.characters[this.currChar].outro[this.currIntro].segments.length-1){
 		this.updateClipboard();
 		this.currSegment++;
-		this.updateCounter();
 	}
 	else if (this.isIntro && this.currIntro < this.charArr.characters[this.currChar].intro.length-1){
 		this.updateClipboard();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
-		this.updateCounter();
 	}
 	else if (this.isOutro && this.currIntro < this.charArr.characters[this.currChar].outro.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
-		this.updateCounter();
+		this.isQuestion = true;
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
@@ -322,7 +309,6 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.currIntro = 0;
 		this.isQuestion = true;
 		this.isTransition = false;
-		this.updateCounter();
 	}
 	this.PrintText();
 	return;
@@ -331,13 +317,11 @@ gameplayState.prototype.UpdateIntro = function(){
 gameplayState.prototype.UpdateText = function(){
 	if(this.isQuestion == true){ //Display question
 		this.isQuestion = false;
-		this.updateCounter();
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
 		this.updateSummary();
 		this.currSegment++;
-		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
 		this.updateClipboard();
@@ -345,7 +329,6 @@ gameplayState.prototype.UpdateText = function(){
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
-		this.updateCounter();
 	}
 	else if(!this.isTransition){
 		this.isTransition = true;
@@ -359,7 +342,6 @@ gameplayState.prototype.UpdateText = function(){
 		this.isTransition = false;
 		this.questionMode = false;
 		this.textMode = true;
-		this.updateCounter();
 	}
 
 	this.PrintText();
@@ -422,23 +404,6 @@ gameplayState.prototype.left = function(){
 		this.currCont--;
 	}
 	this.UpdateText();
-};
-
-gameplayState.prototype.updateCounter = function() {
-	//Stop the timer
-	timer.stop();
-
-	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment] != null) {
-		//Switch timer variable to the next value it needs to be
-		if(!this.isQuestion) {
-			this.timeToCopmlete = this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
-			console.log("Time to complete is " + this.timeToCopmlete);
-			//timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
-
-			//start the timer again
-			timer.start();
-		}
-	}
 };
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard

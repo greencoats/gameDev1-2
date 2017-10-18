@@ -1,0 +1,147 @@
+{
+    "characters" : [
+        {
+            "introStart" : "Let's see if the information lines up.",
+            
+            "name": "Martha",
+            "picture": "/assets/images/martha.png",
+
+            "intro": [
+                {
+                    "question": "Hello there. Are you Martha?",
+                    "segments": ["Yes, that’s me. What can I do for you?"],
+                    "summary": [false]
+                },
+                {
+                    "question": "The nice lady down the street pointed me here.",
+                    "segments": ["Oh, Linda sent you?"],
+                    "summary": [false]
+                },
+                {
+                    "question": "Yes, ma’am. I heard you might know a bit about the murders going on around here.",
+                    "segments": ["You’re looking into the murders? Finally, we might see light at the end of the tunnel."],
+                    "summary": [false]
+                }
+            ],
+
+            "introTransition" : "Let's see if she has accurate information for me.",
+
+            "dialogues": [
+                {
+                    "question": "I want to confirm one thing. What was the killer wearing?",
+                    "segments": ["I saw it with my own eyes. The murderer was wearing a police uniform."],
+                    "contradiction": [false],
+                    "timer": [3333],
+                    "abbr": ["Killer apparently wore a police uniform\n"],
+                    "summary": [true]
+                },
+                {
+                    "question": "Really? Can you tell me more?",
+                    "segments": ["Of course. He had a mustache.", "Had a nametag that said Jones."],
+                    "contradiction": [false,false],
+                    "timer": [8888,9999],
+                    "abbr" : ["Suspect had a mustache","His nametag said Jones\n"],
+                    "summary": [false,false]
+                },
+                {
+                    "question": "That’s a big lead. Did you happen to get a good look at any of the victims?",
+                    "segments": ["Yes. The victims I’ve seen all looked to have stab marks."],
+                    "contradiction": [false],
+                    "timer": [8888],
+                    "abbr" : ["Victims were stabbed to death\n"],
+                    "summary": [true]
+                }
+            ],
+
+            "questionsTransition" : "That's enough here. I think I'm onto something.",
+
+            "outro" : [
+                {
+                    "question": "Thank you for your time.",
+                    "segments": ["No, thank you. I’m not proud of it, but my son was part of a gang around this area."," See if you can find their leader. Give him my name and he’ll be open to conversation."],
+                    "summary": [false,false]
+                },
+                {
+                    "question": "Local gangs, huh.",
+                    "segments": ["They treated my son well. I think they may know even more than me, given the size of their network."],
+                    "summary": [false]
+                }
+            ],
+
+            "outroTransition" : "A gang leader... This is an interesting turn of events."
+        },
+        {
+            "name": "Gang Leader",
+            "picture": "/assets/images/gang.png",
+
+            "introStart": "I think I’ll get into uniform for this.",
+
+            "intro": [
+                {
+                    "question": "Hey. Are you the leader around here?",
+                    "segments": ["What, Mr. Cop? Here to arrest me?"],
+                    "summary": [false]
+                },
+                {
+                    "question": "Not if you’re willing to cooperate.",
+                    "segments": ["I don’t know nothing, man."],
+                    "summary": [false]
+                },
+                {
+                    "question": "I know you do.  Ms. Martha told me about you.",
+                    "segments": ["...Alright. I’ll talk."],
+                    "summary": [false]
+                }
+            ],
+
+            "introTransition" : "Wow, mentioning Martha really did the trick.",
+
+            "dialogues": [
+                {
+                    "question": "“Alright. Let’s start with what you know.",
+                    "segments": ["Sure. For starters, I know the killer.","He goes by Jones, though one of our guys got his hands on a licence.","We know his real name is Thomas Albertson."],
+                    "contradiction": [false,false,false],
+                    "timer": [3333,4444,5555],
+                    "abbr": ["Gangster claims to know killer\n","","Killer's real name is allegedly Thomas Albertson\n"],
+                    "summary": [false,false,true]
+                },
+                {
+                    "question": "So, Albertson. What was his goal?",
+                    "segments": ["He snuck into the gay bars. He would blend in then stab his targets right in the gut."],
+                    "contradiction": [false],
+                    "timer": [6666],
+                    "abbr":  ["Killer would blend in at gay bars, then stab his victims\n"],
+                    "summary": [false]
+                },
+                {
+                    "question": "I see. Why should I trust your information?",
+                    "segments": ["Albertson paid us some good money to stay silent.", "But if Miss Martha sent you here, then I won’t be lying. I’ve got the money anyway."],
+                    "contradiction": [false,false],
+                    "timer": [8888,9999],
+                    "abbr" : ["Albertson paid off local gangs to stay silent\n",""],
+                    "summary": [false,false]
+                },
+                {
+                    "question": "Okay, one last thing. Where was this Thomas Albertson last seen?",
+                    "segments": ["Down by the lake, at the end of this street."],
+                    "contradiction": [false],
+                    "timer": [8888],
+                    "abbr" : ["Suspect apparently at the end of the street\n"],
+                    "summary": [false]
+                }
+            ],
+
+            "questionsTransition" : "Gotta get a move on. No time to waste.",
+
+            "outro" : [
+                {
+                    "question": "I’m trusting your information is good.",
+                    "segments": ["You can bet on it. Heh, if I’m wrong you can arrest me."],
+                    "summary": [false]
+                }
+            ],
+
+            "outroTransition" : "Ok, let's bust this guy!"
+        }
+    ]
+}
