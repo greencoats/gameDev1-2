@@ -18,7 +18,7 @@ menuState.prototype.Press = function (){
 
 menuState.prototype.update = function () {
   if(this.changeState == true){
-    game.state.states['Gameplay'].currentLevel = 1;
+    game.state.states['Gameplay'].currentLevel = 0;
     game.state.start("Gameplay");
   }
 };

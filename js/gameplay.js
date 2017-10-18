@@ -2,16 +2,18 @@
 // #####      GAMEPLAY      #####
 // ##############################
 let gameplayState = function(){
-	this.currentLevel = 1;
+	this.currentLevel = 0;
 };
 
 // ##############################
 // #####  PRE/CREATE/UPDATE #####
 // ##############################
 gameplayState.prototype.preload = function() {
+	game.load.json('character0','characters_0.json');
 	game.load.json('character1','characters_1.json');
 	game.load.json('character2','characters_2.json');
 	game.load.json('character3','characters_3.json');
+	game.load.json('clipboard0','clipboard_0.json');
 	game.load.json('clipboard1','clipboard_1.json');
 	game.load.json('clipboard2','clipboard_2.json');
 	game.load.json('clipboard3','clipboard_3.json');
@@ -52,7 +54,10 @@ gameplayState.prototype.create = function() {
 	this.maxCont = this.charArr.contradictions;
 	this.currCont = 0;
 	this.currFalsePos = 0;
-	if(this.currentLevel === 1){
+	if(this.currentLevel === 0){
+		this.threshold = 20;
+	}
+	else if(this.currentLevel === 1){
 		this.threshold = 3;
 	}
 	else if(this.currentLevel === 2){
@@ -188,15 +193,16 @@ gameplayState.prototype.swipeSwitch = function() {
 	if (this.swipeActive === false) {
 		this.swipeActive = true;
 		this.speechBubble.events.onInputDown.removeAll();
+		this.speechBubble.events.onInputUp.removeAll();
 		this.speechBubble.events.onInputDown.add(this.textSwipeBegin, this);
 		this.speechBubble.events.onInputUp.add(this.textSwipeEnd, this);
 		this.bubbleSwitch();
 	}
 	else {
 		this.swipeActive = false;
-		this.speechBubble.events.onInputDown.removeAll();
 		this.speechBubble.events.onInputUp.removeAll();
-		this.speechBubble.events.onInputDown.add(this.right, this);
+		this.speechBubble.events.onInputDown.removeAll();
+		this.speechBubble.events.onInputUp.add(this.right, this);
 		this.bubbleSwitch();
 	}
 }

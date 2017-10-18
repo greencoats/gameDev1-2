@@ -13,6 +13,8 @@ preloadState.prototype.preload = function() {
 	// Person of Interest assets
 	game.load.image("poiPortrait_png", "assets/customer.png");
 
+	game.load.image("char0-0", "/assets/bartender.png");
+
 	game.load.image("char1-0", "/assets/bartender.png");
 	game.load.image("char1-1", "/assets/images/custodian.png");
 	game.load.image("char1-2", "/assets/images/customer.png");
