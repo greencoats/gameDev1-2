@@ -1,6 +1,8 @@
 {
     "characters" : [
         {
+            "introStart" : "I think this guy might have some info",
+            
             "name": "John Doe",
             "picture": "/assets/images/john_doe.png",
 
@@ -107,6 +109,8 @@
         {
             "name": "John Travolta",
             "picture": "/assets/images/john_travolta.png",
+
+            "introStart" : "I think this guy might have some info",
 
             "intro": [
                 {
