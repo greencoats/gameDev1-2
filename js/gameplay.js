@@ -9,13 +9,14 @@ let gameplayState = function(){
 // #####  PRE/CREATE/UPDATE #####
 // ##############################
 gameplayState.prototype.preload = function() {
-	game.load.json('character','exampleJSON.json');
-	game.load.json('clipboard','clipboardJSON.json');
+	game.load.json('character','characters_1.json');
+	game.load.json('clipboard','clipboard_1.json');
 };
 
 gameplayState.prototype.create = function() {
 	// UI
 	this.initializeUI();
+	this.newBubbles();
 
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
@@ -25,6 +26,8 @@ gameplayState.prototype.create = function() {
 	this.currChar = 0;
 	this.maxChar = 0;
 	this.isQuestion = true;
+
+	this.currSummary = 0;
 
 	//booleans to create modes of gameplayState
 	this.textMode = true;
@@ -56,8 +59,9 @@ gameplayState.prototype.create = function() {
 	timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
 
 	//Add initial synopsis text to clipboard
-	this.synopText = this.clipboardData.summaries[0][0];
+	this.synopText = this.clipboardData.summaries[0];
 	this.synopsis = game.add.text(this.clipboard.x + 40,this.clipboard.y + 200,this.synopText,{font:'24px Arial', fill: '#ff0202', align: 'center'},this.clipboard);
+	this.currSummary++;
 
 	//Setup abbreviation text into clipboard group
 	this.abbrev = game.add.text(this.clipboard.x + 40,this.clipboard.y + 500,"",{font:'24px Arial', fill: '#ff0202', align: 'left'},this.clipboard);
@@ -117,7 +121,7 @@ gameplayState.prototype.textSwipeEnd = function() {
 	else if (distX < 0) {
 		this.swipedRight = true;
 	}
-	this.returnBubbles();
+	this.placeBubbles();
 };
 
 gameplayState.prototype.boardSwipeBegin = function() {
@@ -158,11 +162,6 @@ gameplayState.prototype.initializeUI = function() {
 	this.speech.y = 295;
 
 	this.speechBubble = this.speech.create(this.speech.x, this.speech.y + 50, "speechBubble_png");
-	this.truthBubble = this.speech.create(this.speech.x + 25, this.speech.y + 125, "truth_png");
-	this.lieBubble = this.speech.create(this.speech.x + 625, this.speech.y + 125, "lie_png");
-	this.truthBubble.scale.setTo(0.5, 0.5);
-	this.lieBubble.scale.setTo(0.5, 0.5);
-
 	this.swipedRight = false;
 	this.swipedLeft = false;
 
@@ -185,6 +184,18 @@ gameplayState.prototype.initializeUI = function() {
 	this.boardStart = 425;
 	this.metalClip.events.onInputDown.add(this.boardSwipeBegin, this);
 	this.metalClip.events.onInputUp.add(this.boardSwipeEnd, this);
+};
+
+gameplayState.prototype.newBubbles = function() {
+	this.truthBubble = this.speech.create(this.speech.x - 650, this.speech.y + 125, "truth_png");
+	this.lieBubble = this.speech.create(this.speech.x + 600, this.speech.y + 125, "lie_png");
+	this.truthBubble.scale.setTo(0.5, 0.5);
+	this.lieBubble.scale.setTo(0.5, 0.5);
+};
+
+gameplayState.prototype.resetBubbles = function() {
+	this.truthBubble.x = -650;
+	this.lieBubble.x = 600;
 };
 
 gameplayState.prototype.moveClipboard = function() {
@@ -215,24 +226,28 @@ gameplayState.prototype.placeClipboard = function() {
 gameplayState.prototype.moveBubbles = function() {
 	if (this.swipingText === true) {
 		if (this.startX > 325) {
-			if (game.input.worldX < 625) {
+			if (game.input.worldX < 600) {
 				this.lieBubble.x = game.input.worldX;
 			}
 		}
 		else {
 			if (game.input.worldX > 25) {
-				this.truthBubble.x = game.input.worldX;
+				this.truthBubble.x = (-650 - this.startX) + (game.input.worldX);
 			}
 		}
 	}
 };
 
-gameplayState.prototype.returnBubbles = function () {
+gameplayState.prototype.placeBubbles = function () {
 	if (this.swipedRight === true) {
-		let tween = game.add.tween(this.truthBubble).to( { x: 25 }, 100, Phaser.Easing.Quadratic.Out, true);
+		let tween = game.add.tween(this.truthBubble).to( { x: 750 }, 800, Phaser.Easing.Quadratic.Out, true);
+		tween.onComplete.add(this.resetBubbles, this);
+		//this.newBubbles();
 	}
 	else if (this.swipedLeft === true) {
-		let tween = game.add.tween(this.lieBubble).to( { x: 625 }, 100, Phaser.Easing.Quadratic.Out, true);
+		let tween = game.add.tween(this.lieBubble).to( { x: -750 }, 800, Phaser.Easing.Quadratic.Out, true);
+		tween.onComplete.add(this.resetBubbles,this);
+		//this.newBubbles();
 	}
 };
 
@@ -256,6 +271,7 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else if(this.isIntro && this.currSegment < this.charArr.characters[this.currChar].intro[this.currIntro].segments.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
@@ -273,6 +289,7 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else if (this.isOutro && this.currIntro < this.charArr.characters[this.currChar].outro.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
 		this.isQuestion = true;
@@ -283,6 +300,7 @@ gameplayState.prototype.UpdateIntro = function(){
 	}
 	else{
 		this.updateClipboard();
+		this.updateSummary();
 		if(this.isOutro){
 			this.currChar++;
 			this.isIntro = true;
@@ -316,11 +334,13 @@ gameplayState.prototype.UpdateText = function(){
 	}
 	else if(this.currSegment < this.charArr.characters[this.currChar].dialogues[this.currDialogues].segments.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment++;
 		this.updateCounter();
 	}
 	else if (this.currDialogues < this.charArr.characters[this.currChar].dialogues.length-1){
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues++;
 		this.isQuestion = true;
@@ -331,6 +351,7 @@ gameplayState.prototype.UpdateText = function(){
 	}
 	else{
 		this.updateClipboard();
+		this.updateSummary();
 		this.currSegment = 0;
 		this.currDialogues = 0;
 		this.isQuestion = true;
@@ -338,14 +359,6 @@ gameplayState.prototype.UpdateText = function(){
 		this.questionMode = false;
 		this.textMode = true;
 		this.updateCounter();
-	}
-
-	//Hardcoded segment for determining when to update clipboard synopsis
-	if(this.currDialogues==1 && this.currSegment==1) {
-		this.synopsis.text += this.clipboardData.summaries[0][1];
-	}
-	else if(this.currDialogues==2 && this.currSegment==1) {
-		this.synopsis.text += this.clipboardData.summaries[0][2];
 	}
 
 	this.PrintText();
@@ -384,6 +397,7 @@ gameplayState.prototype.PrintText = function(){
 	}
 	else if(this.questionMode){
 		if(this.isQuestion == true){
+			this.resetBubbles();
 			this.dia.text = this.charArr.characters[this.currChar].dialogues[this.currDialogues].question;
 		}
 		else{
@@ -423,5 +437,14 @@ gameplayState.prototype.updateCounter = function() {
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
 	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
 		this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
+	}
+}
+
+gameplayState.prototype.updateSummary = function() { //Function will update the clipboard synopsis if needed
+	console.log("RUNNING SUMMARY CHECK");
+	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].summary[this.currSegment] == true) {
+		console.log("UPDATING CLIPBOARD");
+		this.synopsis.text += this.clipboardData.summaries[this.currSummary];
+		this.currSummary++;
 	}
 }
