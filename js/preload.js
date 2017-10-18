@@ -33,6 +33,7 @@ preloadState.prototype.preload = function() {
 	game.load.audio("track_1", "assets/music/track1.wav");
 	game.load.audio("track_2", "assets/music/track2.wav");
 	game.load.audio("track_3", "assets/music/track3.wav");
+	game.load.audio("writing", "assets/music/writing.wav");
 }
 
 preloadState.prototype.create = function() {

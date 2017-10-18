@@ -24,11 +24,15 @@ gameplayState.prototype.preload = function() {
 	track1 = new Phaser.Sound(game, 'track_1', 1, true);
 	track2 = new Phaser.Sound(game, 'track_2', 1, true);
 	track3 = new Phaser.Sound(game, 'track_3', 1, true);
+	//http://freesound.org/people/newagesoup/sounds/335513/ -- edited by Oliver
+	this.writing = new Phaser.Sound(game, 'writing', 1, false);
 };
 
 gameplayState.prototype.create = function() {
 	//Play music
-	track1.play();
+	if(this.currentLevel === 0){
+		track1.play();
+	}
 
 	//JSON Data held in array
 	this.charArr = game.cache.getJSON('character' + this.currentLevel);
@@ -469,7 +473,7 @@ gameplayState.prototype.left = function(){
 };
 
 gameplayState.prototype.updateClipboard = function() { //function adds abbreviated statement to clipboard
-	if(this.questionMode) {	
+	if(this.questionMode) {
 		if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment] != null) { //Make sure the dialogue isn't currently reading a question
 			this.abbrev.text += this.charArr.characters[this.currChar].dialogues[this.currDialogues].abbr[this.currSegment];
 		}
@@ -482,6 +486,7 @@ gameplayState.prototype.updateSummary = function() { //Function will update the 
 			console.log("UPDATING CLIPBOARD 0");
 			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 			this.currSummary++;
+			this.writing.play();
 		}
 	}
 	else if(this.isIntro) {
@@ -489,6 +494,7 @@ gameplayState.prototype.updateSummary = function() { //Function will update the 
 			console.log("UPDATING CLIPBOARD 1");
 			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 			this.currSummary++;
+			this.writing.play();
 		}
 	}
 	else if(this.isOutro) {
@@ -500,6 +506,7 @@ gameplayState.prototype.updateSummary = function() { //Function will update the 
 			console.log(this.currDialogues);
 			this.synopsis.text += this.clipboardData.summaries[this.currSummary];
 			this.currSummary++;
+			this.writing.play();
 		}
 	}
 }
