@@ -12,5 +12,6 @@ Tasks DONE:
 
 TODO by Saturday 10/14:
 -Load conclusion and tutorial into JSON
+-Clear clipboad text each new chapter
 -Fix text color of clipboard info
 -Debug text adding to clipboard (both synopsis and abbreviated statements)
