@@ -18,13 +18,17 @@ gameplayState.prototype.create = function() {
 	this.initializeUI();
 	this.newBubbles();
 
+	//JSON Data held in array
+	this.charArr = game.cache.getJSON('character');
+	this.clipboardData = game.cache.getJSON('clipboard');
+
 	//variables to keep track of the character and statement we are on
 	this.currChar = 0;
 	this.currDialogues = 0;
 	this.currSegment = 0;
 	this.currIntro = 0;
 	this.currChar = 0;
-	this.maxChar = 0;
+	this.maxChar = this.charArr.characters.length-1;
 	this.isQuestion = true;
 
 	this.currSummary = 0;
@@ -36,11 +40,9 @@ gameplayState.prototype.create = function() {
 	this.isOutro = false;
 	this.isTransition = false;
 
-	//JSON Data held in array
-	this.charArr = game.cache.getJSON('character');
-	this.clipboardData = game.cache.getJSON('clipboard');
+
 	//get character data from JSON file and create text object
-	this.dia = game.add.text(game.world.centerX,750,this.charArr.characters[this.currChar].intro[this.currIntro].question, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"#ffffff"});
+	this.dia = game.add.text(game.world.centerX,750,this.charArr.characters[this.currChar].introStart, {fontSize: '28pt', wordWrap: true,wordWrapWidth: 420, fill:"#ffffff"});
 	this.dia.anchor.setTo(.5);
 
 	//CONTROLS
@@ -56,7 +58,7 @@ gameplayState.prototype.create = function() {
 	console.log("Time to complete is " + this.timeToCopmlete);
 
 	//After specified number of seconds, updateText is called
-	timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
+	//timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}, this);
 
 	//Add initial synopsis text to clipboard
 	this.synopText = this.clipboardData.summaries[0];
@@ -256,7 +258,7 @@ gameplayState.prototype.placeBubbles = function () {
 // ##############################
 
 gameplayState.prototype.Conclude = function(){
-	console.log("here");
+	console.log(this.currChar);
 	game.state.states["Score"].score = this.currCont;
 	game.state.states["Score"].maxScore = this.maxCont;
 	game.state.states["Score"].level = this.currentLevel;
@@ -292,7 +294,6 @@ gameplayState.prototype.UpdateIntro = function(){
 		this.updateSummary();
 		this.currSegment = 0;
 		this.currIntro++;
-		this.isQuestion = true;
 		this.updateCounter();
 	}
 	else if(!this.isTransition){
@@ -306,12 +307,12 @@ gameplayState.prototype.UpdateIntro = function(){
 			this.isIntro = true;
 			this.isOutro = false;
 			console.log(this.currChar + " : " + this.maxChar);
-			if(this.currChar >= this.maxChar){
+			if(this.currChar > this.maxChar){
 				this.Conclude();
 				return;
 			}
 		}
-		if(this.isIntro){
+		else if(this.isIntro){
 			this.textMode = false;
 			this.questionMode = true;
 			this.isIntro = false;
@@ -372,8 +373,11 @@ gameplayState.prototype.PrintText = function(){
 		if(this.isIntro){
 			this.dia.text = this.charArr.characters[this.currChar].introTransition;
 		}
-		else if(this.isOutro){
+		else if(this.questionMode){
 			this.dia.text = this.charArr.characters[this.currChar].questionsTransition;
+		}
+		else if(this.isOutro){
+			this.dia.text = this.charArr.characters[this.currChar].outroTransition;
 		}
 		//this.dia.style.font = 'Bold 28pt Arial';
 	}
@@ -411,8 +415,11 @@ gameplayState.prototype.right = function() {
 };
 
 gameplayState.prototype.left = function(){
-	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].contradiction[this.currSegment] && !this.isQuestion){
+	if(this.charArr.characters[this.currChar].dialogues[this.currDialogues].contradiction[this.currSegment] && !this.isQuestion && this.questionMode){
 		this.currCont++;
+	}
+	else if (this.currCont > 0){
+		this.currCont--;
 	}
 	this.UpdateText();
 };
@@ -426,7 +433,7 @@ gameplayState.prototype.updateCounter = function() {
 		if(!this.isQuestion) {
 			this.timeToCopmlete = this.charArr.characters[this.currChar].dialogues[this.currDialogues].timer[this.currSegment];
 			console.log("Time to complete is " + this.timeToCopmlete);
-			timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
+			//timer.loop(this.timeToCopmlete, function (){ this.UpdateText()}	, this);
 
 			//start the timer again
 			timer.start();
